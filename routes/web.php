@@ -18,11 +18,11 @@ Auth::routes();
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('auth');
 
 Route::get('/home', function () {
     return view('/home');
-});
+})->middleware('auth');
 
 Route::get('/login', function () {
     return view('/auth.login');
@@ -30,10 +30,10 @@ Route::get('/login', function () {
 
 Route::get('/register', function () {
     return view('/auth.register');
-})->name('register');
+})->middleware('can:login')->name('register');
 
 Route::view('/usuario', 'admin.user')->middleware('can:login')->name('user');
-Route::view('/rol', 'admin.rol')->middleware('can:login')->name('user');
+Route::view('/rol', 'admin.rol')->middleware('can:login')->name('rol');
 
 
 

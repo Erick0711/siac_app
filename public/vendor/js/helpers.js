@@ -1,5 +1,6 @@
 
 function notificacion()
+
 {
     Livewire.on('notificar', function (data) 
     {
@@ -29,7 +30,6 @@ function confirmacion(component, metodo)
 {
     Livewire.on('confirmDelete', function (id) 
     {
-        // console.log(id);
         Swal.fire({
             title: "ADVERTENCIA?",
             text: "Deseas continuar con la acción?",
@@ -41,12 +41,10 @@ function confirmacion(component, metodo)
             cancelButtonText: "Cancelar"
             
         }).then((result) => {
-
-            if (result.isConfirmed) 
+            // console.log(result.value);
+            if (result.value) 
             {
-                
-                Livewire.dispatchTo(component,metodo, {id: id})
-                // console.log(nuevo);
+                Livewire.dispatch(component, {id: id});
                 Swal.fire({
                     position: "center",
                     icon: "success",

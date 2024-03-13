@@ -7,6 +7,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
 use App\Livewire\Form\UsersForm;
+use App\Models\Persona;
 
 class UserLivewire extends Component
 {
@@ -20,12 +21,27 @@ class UserLivewire extends Component
 
     protected $paginationTheme = 'bootstrap';
     public $search;
+    public $searchPersona;
+    public $obtenerIdPersona = "";
     public $openModalEdit = false;
     public $openModalNew = false;
     public $idUsuario;
     public $selectedRoles = [];
+    public $selectedPersona = false;
     
     public UsersForm $usuarios;
+
+
+    public function seleccionarPersona($id)
+    {
+        $this->obtenerIdPersona = $id;
+        $this->selectedPersona = !$this->selectedPersona;
+
+        if(!$this->selectedPersona)
+        {
+            $this->reset(['obtenerIdPersona']);
+        }
+    }
 
     public function closeModal()
     {
@@ -43,7 +59,20 @@ class UserLivewire extends Component
                     ->orWhere('email','LIKE', '%'.$this->search.'%')
                     ->paginate(5);
         $roles = Role::all();
-        return view('livewire.user.user-livewire', compact('users', 'roles'));
+        $personas = collect();
+
+        if(!empty($this->searchPersona))
+        {
+            $personas = Persona::where('nombre_pers', 'like', '%' . $this->searchPersona . '%')
+                                ->orWhere('apellido_pers', 'like', '%' . $this->searchPersona . '%')
+                                ->orWhere('ci_pers', 'like', '%' . $this->searchPersona . '%')
+                                ->orWhere('correo_pers', 'like', '%' . $this->searchPersona . '%')
+                                ->orderBy('id','desc')
+                                ->limit(5)
+                                ->get();
+        }
+
+        return view('livewire.user.user-livewire', compact('users', 'roles', 'personas'));
     }
 
     public function edit($id)

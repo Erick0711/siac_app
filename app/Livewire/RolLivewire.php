@@ -3,13 +3,14 @@
 namespace App\Livewire;
 
 use App\Livewire\Form\RolForm;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 class RolLivewire extends Component
 {
-
+    
     protected $paginationTheme = 'bootstrap';
     public $search;
     public $openModalEdit = false;
@@ -24,7 +25,6 @@ class RolLivewire extends Component
     {
         $this->reset(['openModalNew', 'openModalEdit', 'search', 'rol', 'selectedPermission']);
     }
-
 
     public function render()
     {
@@ -52,7 +52,8 @@ class RolLivewire extends Component
         $selectedPermissions = $rol->permissions->pluck('id')->toArray();
 
         // Inicializar el array selectedPermission con los permisos asociados al rol
-        foreach ($selectedPermissions as $permissionId) {
+        foreach ($selectedPermissions as $permissionId) 
+        {
             $this->selectedPermission[$permissionId] = true;
         }
     }
@@ -67,5 +68,22 @@ class RolLivewire extends Component
         
         $selectedPermission = array_keys(array_filter($this->selectedPermission));
         $rol->permissions()->sync($selectedPermission);
+        $this->dispatch('notificar', message: true);
+    }
+
+    #[On('delete')]
+    public function eliminarEstado($id)
+    {
+
+        $rol = Role::find($id);
+        $estado = $rol->estado;
+
+        if($estado == 1)
+        {
+            $rol->estado = 0;
+        }else{
+            $rol->estado = 1;
+        }
+        $rol->save();
     }
 }

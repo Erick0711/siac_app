@@ -17,7 +17,11 @@
                             <td>{{$rol->name}}</td>
                             <td>
                                 <button class="btn btn-warning btn-sm" wire:click="edit({{ $rol->id }})"><i class="fas fa-pencil-alt"></i></button>
-                                <button>Eliminar</button>
+                                @if($rol->estado == 1)
+                                    <button class="btn btn-danger btn-sm" wire:click="$dispatch('confirmDelete', {{ $rol->id }})"><i class="fas fa-trash"></i></button>
+                                @else
+                                    <button class="btn btn-primary btn-sm" wire:click="$dispatch('confirmDelete', {{ $rol->id }})"><i class="fas fa-history"></i></button>
+                                @endif
                             </td>
                             <td></td>
                         </tr>
@@ -36,11 +40,11 @@
         <div class="modal" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: block" aria-modal="true" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
+
                     <!-- Encabezado del Modal -->
                     <div class="modal-header bg-primary">
                         <h4 class="modal-title">NUEVO ROL</h4>
                         <button type="button" class=" btn btn-danger btn-sm" data-dismiss="modal" wire:click="closeModal">×</button>
-                        {{--  --}}
                     </div>
         
                     <!-- Contenido del Modal -->
@@ -79,6 +83,7 @@
                             </div>
                         </form>
                     </div>
+
                 </div>
             </div>
         </div>

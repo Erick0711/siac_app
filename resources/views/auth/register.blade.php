@@ -9,7 +9,7 @@
 
                 <div class="card-body">
                     {{-- action="{{ route('register') }}" --}}
-                    <form method="POST" >
+                    <form method="POST" wire:submit="">
                         @csrf
 
                         <div class="row mb-3">

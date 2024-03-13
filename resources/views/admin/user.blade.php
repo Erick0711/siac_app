@@ -1,6 +1,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Dashboard')
+@livewireStyles
 
 @section('content_header')
     <h1>Dashboard</h1>
@@ -9,6 +10,7 @@
 @section('content')
     @livewire('UserLivewire')
 @stop
+@livewireScripts
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
