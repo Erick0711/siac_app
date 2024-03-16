@@ -8,6 +8,7 @@ use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
 use App\Livewire\Form\UsersForm;
 use App\Models\Persona;
+use Illuminate\Support\Facades\Hash;
 
 class UserLivewire extends Component
 {
@@ -30,6 +31,9 @@ class UserLivewire extends Component
     public $selectedPersona = false;
     
     public UsersForm $usuarios;
+
+    public $password = "";
+    public $confirmPassword = "";
 
 
     public function seleccionarPersona($id)
@@ -91,5 +95,28 @@ class UserLivewire extends Component
         $selectedRoles = array_keys(array_filter($this->selectedRoles));
         $request->roles()->sync($selectedRoles);
         $this->dispatch('notificar', message: true);
+    }
+
+    public function create()
+    {
+        $this->usuarios->persona_id = $this->obtenerIdPersona;
+
+        // dd($this->usuarios->persona_id);
+        // Buscamos el dato nombre y apellido en la persona
+        $persona = Persona::find($this->obtenerIdPersona);
+
+        $nombre_persona = $persona->nombre_pers ." ". $persona->apellido_pers;
+
+
+        $usuario =  User::create([
+            'persona_id' => $this->usuarios->persona_id, 
+            'name' => $nombre_persona,
+            'email' => $this->usuarios->email,
+            'password' => Hash::make($this->usuarios->password),
+        ]);
+
+       $response = $usuario ? true : false;
+       $this->dispatch('notificar', message: $response);
+    //    $this->reset(['openModalNew', 'obtenerIdPersona', 'usuarios', 'search', 'selectedPersona', 'searchPersona']);
     }
 }

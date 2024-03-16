@@ -1,5 +1,6 @@
 @extends('adminlte::page')
 
+@section('plugins.Sweetalert2', true)
 @section('title', 'Dashboard')
 @livewireStyles
 

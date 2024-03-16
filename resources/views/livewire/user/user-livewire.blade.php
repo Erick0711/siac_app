@@ -66,17 +66,17 @@
                 <div class="modal-content">
                     <!-- Encabezado del Modal -->
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title">EDITAR USUARIO</h4>
+                        <h4 class="modal-title">AGREGAR USUARIO</h4>
                         <button type="button" class=" btn btn-danger btn-sm" data-dismiss="modal" wire:click="closeModal">×</button>
                         {{--  --}}
                     </div>
         
                     <!-- Contenido del Modal -->
                     <div class="modal-body">
-                        <form wire:submit="update">
+                        <form wire:submit="create">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <input type="text" wire:model="obtenerIdPersona" required>
+                                    <input type="hidden" wire:model="obtenerIdPersona" required>
                                     <label for="">Buscar Persona:*</label>
                                     <input type="text" class="form-control buscar" placeholder="Buscar" aria-label="Buscador" wire:model.live="searchPersona" 
                                     @if($selectedPersona) disabled @endif>
@@ -113,14 +113,29 @@
                                        </table>
                                        @else
                                        <tr>
-                                          <th colspan="5" class="text-center">No hay personas encontradas.</th>
+                                          <th colspan="3" class="text-center">No hay personas encontradas.</th>
                                        </tr>
                                           <p class="text-center"></p>
                                        @endif
                                     @endisset
                                     {{-- {{dd($personas)}} --}}
                               </div>
-
+                              <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="form-label fw-bold">Usuario:*</label>
+                                        <input type="email" class="form-control" wire:model="usuarios.email" required>
+                                    </div>
+                                    <div class="col-md-6 mt-2">
+                                        <label class="form-label fw-bold">Contraseña:*</label>
+                                        <input type="password" class="form-control" wire:model="password" required>
+                                    </div>
+                                    <div class="col-md-6 mt-2">
+                                        <label class="form-label fw-bold">Confirmar:*</label>
+                                        <input type="password" class="form-control @if($password === $confirmPassword && $confirmPassword !== '') border-success @else border-danger @endif" wire:model.live="confirmPassword" required>
+                                    </div>
+                                </div>
+                              </div>
                             </div>
                             {{-- @if ($errors->any())
                                 <div class="alert alert-danger">
@@ -131,9 +146,11 @@
                                     </ul>
                                 </div>
                             @endif --}}
-                            <div class="row d-flex justify-content-end mt-4">
-                                <x-button class="btn-success btn-sm">Guardar</x-button>
-                            </div>
+                            @if($password === $confirmPassword && $confirmPassword !== '')
+                                <div class="row d-flex justify-content-end mt-4">
+                                    <x-button class="btn-success btn-sm">Guardar</x-button>
+                                </div>
+                            @endif
                         </form>
                     </div>
                 </div>
