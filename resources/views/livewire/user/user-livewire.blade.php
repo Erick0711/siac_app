@@ -181,10 +181,14 @@
                                     <input class="form-control" type="text" wire:model="usuarios.email" required>
                                 </div>
                                 <div class="col-md-6 mt-4">
+                                    {{-- <input type="checkbox" checked> --}}
+
                                     @foreach($roles as $rol)
+                                    <br>
                                         <label>
+                                            {{-- <input type="checkbox" {{ in_array($rol->id, $selectedRoles) ? "checked" : '' }} wire:model="selectedRoles.{{ $rol->id }}"  /> --}}
+                                            <input type="checkbox" {{ in_array($rol->id, $selectedRoles) ? "checked" : '' }} wire:model="selectedRoles.{{ $rol->id }}">
                                             {{ $rol->name }}
-                                            <input type="checkbox" wire:model="selectedRoles.{{ $rol->id }}" {{ in_array($rol->id, $selectedRolesUser) ? 'checked' : '' }}>
                                         </label>
                                     @endforeach
                                 </div>

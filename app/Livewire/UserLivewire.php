@@ -31,7 +31,7 @@ class UserLivewire extends Component
     public $openModalNew = false;
     public $idUsuario;
     public $selectedRoles = [];
-    public $selectedRolesUser = [];
+    public $selectedRolesUser;
     public $selectedPersona = false;
     
     public UsersForm $usuarios;
@@ -91,8 +91,14 @@ class UserLivewire extends Component
         $this->usuarios->email = $user->email;
         
         // Obtener los roles del usuario y establecerlos como seleccionados
-        $selectedRolesUser = $user->roles->pluck('id')->toArray();
-        $this->selectedRolesUser = $selectedRolesUser;
+        $selectedRoles = $user->roles->pluck('id')->toArray();
+        // $this->selectedRoles = $selectedRoles;
+
+        foreach ($selectedRoles as $rol) 
+        {
+            $this->selectedRoles[$rol] = true;
+        }
+
         $this->openModalEdit = true;
     }
 
@@ -100,12 +106,13 @@ class UserLivewire extends Component
     public function update()
     {
         $id = $this->idUsuario;
-        
         $request = User::find($id);
         $selectedRoles = array_keys(array_filter($this->selectedRoles));
+        // dd($selectedRoles);
 
         $request->roles()->sync($selectedRoles);
         $this->dispatch('notificar', message: true);
+       $this->reset(['openModalNew', 'openModalEdit','obtenerIdPersona', 'usuarios', 'search', 'selectedPersona', 'searchPersona', 'selectedRoles', 'idUsuario']);
     }
 
     public function create()
