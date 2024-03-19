@@ -9,6 +9,7 @@ use Spatie\Permission\Models\Role;
 use App\Livewire\Form\UsersForm;
 use App\Models\Persona;
 use Illuminate\Support\Facades\Hash;
+use Livewire\Attributes\On;
 
 class UserLivewire extends Component
 {
@@ -24,17 +25,20 @@ class UserLivewire extends Component
     public $search;
     public $searchPersona;
     public $obtenerIdPersona = "";
+    // public $obtenerIdUser = "";
+
     public $openModalEdit = false;
     public $openModalNew = false;
     public $idUsuario;
     public $selectedRoles = [];
+    public $selectedRolesUser = [];
     public $selectedPersona = false;
     
     public UsersForm $usuarios;
 
     public $password = "";
     public $confirmPassword = "";
-
+    
 
     public function seleccionarPersona($id)
     {
@@ -62,6 +66,7 @@ class UserLivewire extends Component
         $users = User::where('name','LIKE', '%'.$this->search.'%')
                     ->orWhere('email','LIKE', '%'.$this->search.'%')
                     ->paginate(5);
+
         $roles = Role::all();
         $personas = collect();
 
@@ -84,8 +89,13 @@ class UserLivewire extends Component
         $this->idUsuario = $id;
         $user = User::find($id);
         $this->usuarios->email = $user->email;
+        
+        // Obtener los roles del usuario y establecerlos como seleccionados
+        $selectedRolesUser = $user->roles->pluck('id')->toArray();
+        $this->selectedRolesUser = $selectedRolesUser;
         $this->openModalEdit = true;
     }
+
     
     public function update()
     {
@@ -93,6 +103,7 @@ class UserLivewire extends Component
         
         $request = User::find($id);
         $selectedRoles = array_keys(array_filter($this->selectedRoles));
+
         $request->roles()->sync($selectedRoles);
         $this->dispatch('notificar', message: true);
     }
@@ -117,6 +128,26 @@ class UserLivewire extends Component
 
        $response = $usuario ? true : false;
        $this->dispatch('notificar', message: $response);
-    //    $this->reset(['openModalNew', 'obtenerIdPersona', 'usuarios', 'search', 'selectedPersona', 'searchPersona']);
+       $this->reset(['openModalNew', 'obtenerIdPersona', 'usuarios', 'search', 'selectedPersona', 'searchPersona']);
+    }
+
+    // public function changePassword()
+    // {
+    //     dd($this->password);
+    // }
+    
+    #[On('delete')]
+    public function eliminar($id)
+    {
+        $user = User::find($id);
+        $estado = $user->estado;
+
+        if($estado == 1)
+        {
+            $user->estado = 0;
+        }else{
+            $user->estado = 1;
+        }
+        $user->save();
     }
 }

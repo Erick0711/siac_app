@@ -21,6 +21,6 @@
     <script src='{{asset('vendor/js/helpers.js')}}'></script>
     <script>
         notificacion();
-        confirmacion('personas', 'delete');
+        confirmacion('delete', 'eliminar');
     </script>
 @stop

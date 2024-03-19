@@ -18,9 +18,9 @@
         </div>
         @if($users->count())
         <div class="card-body">
-            <table class="table table-light">
+            <table class="table table-bordered table-hover table-light">
                 <thead class="thead-light">
-                    <tr>
+                    <tr class="text-center">
                         <th>#</th>
                         <th>NOMBRE</th>
                         <th>EMAIL</th>
@@ -30,19 +30,19 @@
                 <tbody>
                     @foreach ($users as $user)
                         <tr>
+                            <td class="text-center">{{ $loop->iteration }}</td>
                             <td>{{$user->email}}</td>
                             <td>{{$user->name}}</td>
                             <td class="text-center">
-                                @can('register')
+                                {{-- @can('register') --}}
                                 <button class="btn btn-warning btn-sm" wire:click="edit({{ $user->id }})"><i class="fas fa-pencil-alt"></i></button>
-                                @endcan
-                               
-                                {{-- @if ($funcionario->estado == 1)
-                                      <button class="btn btn-danger btn-sm" wire:click="$dispatch('confirmDelete', {{ $funcionario->id_funcionario }})"><i class="fas fa-trash"></i></button>
+                                {{-- @endcan --}}
+                                @if ($user->estado == 1)
+                                      <button class="btn btn-danger btn-sm" wire:click="$dispatch('confirmDelete', {{ $user->id }})"><i class="fas fa-trash"></i></button>
                                 @else
-                                      <button class="btn btn-primary btn-sm" wire:click="$dispatch('confirmDelete', {{ $funcionario->id_funcionario }})"><i class="fas fa-history"></i></button>
-                                @endif --}}
-                                </td>
+                                      <button class="btn btn-primary btn-sm" wire:click="$dispatch('confirmDelete', {{ $user->id }})"><i class="fas fa-history"></i></button>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -164,6 +164,7 @@
         <div class="modal" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: block" aria-modal="true" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
+
                     <!-- Encabezado del Modal -->
                     <div class="modal-header bg-primary">
                         <h4 class="modal-title">EDITAR PERSONA</h4>
@@ -180,10 +181,10 @@
                                     <input class="form-control" type="text" wire:model="usuarios.email" required>
                                 </div>
                                 <div class="col-md-6 mt-4">
-                                    @foreach ($roles as $rol)
+                                    @foreach($roles as $rol)
                                         <label>
-                                            {{$rol->name}}
-                                            <input type="checkbox" wire:model="selectedRoles.{{ $rol->id }}">
+                                            {{ $rol->name }}
+                                            <input type="checkbox" wire:model="selectedRoles.{{ $rol->id }}" {{ in_array($rol->id, $selectedRolesUser) ? 'checked' : '' }}>
                                         </label>
                                     @endforeach
                                 </div>
