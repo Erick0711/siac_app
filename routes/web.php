@@ -34,6 +34,8 @@ Route::get('/register', function () {
 
 Route::view('/usuario', 'admin.user')->middleware('can:login')->name('user');
 Route::view('/rol', 'admin.rol')->middleware('can:login')->name('rol');
+Route::view('/persona', 'admin.persona')->middleware('can:login')->name('persona');
+
 
 
 

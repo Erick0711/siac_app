@@ -1,11 +1,11 @@
 @extends('adminlte::page')
 
 @section('plugins.Sweetalert2', true)
-@section('title', 'Dashboard')
+@section('title', 'Usuario')
 @livewireStyles
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1 class="fw-bold font-italic">Usuario</h1>
 @stop
 
 @section('content')
