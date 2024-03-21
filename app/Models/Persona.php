@@ -13,14 +13,14 @@ class Persona extends Model
     protected $primaryKey  = "id";
     protected $fillable = [
         'id',
-        'nombre_pers',
-        'apellido_pers',
-        'ci_pers',
-        'complemento_ci',
-        'correo_pers',
-        'telefono_pers',
-        'telefono2_pers',
-        'estado_pers'
+        'nombre',
+        'apellido',
+        'ci',
+        'complemento',
+        'correo',
+        'telefono',
+        'telefono2',
+        'estado'
     ];
     protected $timestamp = false;
 }

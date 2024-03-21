@@ -83,7 +83,9 @@
                             </div>
                         </form>
                     </div>
-
+         
+                     
+                     
                 </div>
             </div>
         </div>
@@ -119,7 +121,7 @@
                                             {{-- <label for="">{{ $permission->id }}</label> --}}
                                             <label for="">
                                                 <input type="checkbox" wire:model="selectedPermission.{{ $permission->id }}">
-                                                {{$permission->description}}
+                                                {{$permission->name ." - ". $permission->description}}
                                             </label>
                                         </div>
                                     @endforeach

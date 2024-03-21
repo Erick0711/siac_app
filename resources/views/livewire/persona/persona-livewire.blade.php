@@ -11,7 +11,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                             </div>
-                            {{-- <input type="text" class="form-control" placeholder="buscar" aria-label="buscar" aria-describedby="basic-addon1" wire:model.live="search"> --}}
+                            <input type="text" class="form-control" placeholder="buscar" aria-label="buscar" aria-describedby="basic-addon1" wire:model.live="search">
                         </div>
                     </div>
                 </div>
@@ -20,7 +20,7 @@
             @if($personas->count())
             <div class="card-body">
                 <table class="table table-sm table-bordered table-hover ">
-                    <thead class="thead-light table-dark">
+                    <thead class="thead-dark">
                         <tr class="text-center">
                             <th>#</th>
                             <th>NOMBRE</th>
@@ -37,15 +37,19 @@
                                 <td class="text-center">{{ $loop->iteration }}</td>
                                 <td>{{$persona->nombre_pers}}</td>
                                 <td>{{$persona->apellido_pers}}</td>
+                                <td>{{$persona->ci_pers}}</td>
+                                <td>{{$persona->correo_pers}}</td>
+                                <td>{{$persona->telefono_pers}}</td>
+
                                 <td class="text-center">
                                     {{-- @can('register') --}}
-                                    {{-- <button class="btn btn-warning btn-sm" wire:click="edit({{ $user->id }})"><i class="fas fa-pencil-alt"></i></button> --}}
+                                    <button class="btn btn-warning btn-sm" wire:click="edit({{ $persona->id }})"><i class="fas fa-pencil-alt"></i></button>
                                     {{-- @endcan --}}
-                                    {{-- @if ($user->estado == 1)
+                                    @if ($persona->estado == 1)
                                         <button class="btn btn-danger btn-sm" wire:click="$dispatch('confirmDelete', {{ $persona->id }})"><i class="fas fa-trash"></i></button>
                                     @else
                                         <button class="btn btn-primary btn-sm" wire:click="$dispatch('confirmDelete', {{ $persona->id }})"><i class="fas fa-history"></i></button>
-                                    @endif --}}
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
