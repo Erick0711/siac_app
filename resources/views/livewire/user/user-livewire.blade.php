@@ -3,14 +3,16 @@
         <div class="card-header">
             <div class="row d-flex justify-content-between">
                 <div class="col-md-1">
-                    <button class="btn btn-success btn-md" wire:click="$toggle('openModalNew')"><i class="fas fa-plus-square"></i></button>
+                    @can('agregar-usuario')
+                        <button class="btn btn-success btn-md" wire:click="$toggle('openModalNew')"><i class="fas fa-plus-square"></i></button>
+                    @endcan
                 </div>
                 <div class="col-md-4">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                         </div>
-                        <input type="text" class="form-control" placeholder="buscar" aria-label="buscar" aria-describedby="basic-addon1" wire:model.live="search">
+                        <input type="text" class="form-control" placeholder="Buscar..." aria-label="buscar" aria-describedby="basic-addon1" wire:model.live="search">
                       </div>
                 </div>
             </div>
@@ -18,13 +20,15 @@
         </div>
         @if($users->count())
         <div class="card-body">
-            <table class="table table-bordered table-hover table-light">
-                <thead class="thead-light">
+            <table class="table table-bordered table-sm table-hover table-light">
+                <thead class="thead-dark">
                     <tr class="text-center">
                         <th>#</th>
-                        <th>NOMBRE</th>
+                        <th>USUARIO</th>
                         <th>EMAIL</th>
-                        <th></th>
+                        @can('funciones-usuario')
+                        <th>ACCIÓN</th>
+                        @endcan()
                     </tr>
                 </thead>
                 <tbody>
@@ -33,16 +37,21 @@
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td>{{$user->email}}</td>
                             <td>{{$user->name}}</td>
-                            <td class="text-center">
-                                {{-- @can('register') --}}
-                                <button class="btn btn-warning btn-sm" wire:click="edit({{ $user->id }})"><i class="fas fa-pencil-alt"></i></button>
-                                {{-- @endcan --}}
-                                @if ($user->estado == 1)
-                                      <button class="btn btn-danger btn-sm" wire:click="$dispatch('confirmDelete', {{ $user->id }})"><i class="fas fa-trash"></i></button>
-                                @else
-                                      <button class="btn btn-primary btn-sm" wire:click="$dispatch('confirmDelete', {{ $user->id }})"><i class="fas fa-history"></i></button>
-                                @endif
-                            </td>
+                            @can('funciones-usuario')
+                                <td class="text-center">
+                                    @can('editar-usuario')
+                                        <button class="btn btn-warning btn-sm" wire:click="edit({{ $user->id }})"><i class="fas fa-pencil-alt"></i></button>
+                                    @endcan
+
+                                    @can('eliminar-usuario')
+                                        @if ($user->estado == 1)
+                                            <button class="btn btn-danger btn-sm" wire:click="$dispatch('confirmDelete', {{ $user->id }})"><i class="fas fa-trash"></i></button>
+                                        @else
+                                            <button class="btn btn-primary btn-sm" wire:click="$dispatch('confirmDelete', {{ $user->id }})"><i class="fas fa-history"></i></button>
+                                        @endif
+                                    @endcan
+                                </td>
+                            @endcan()
                         </tr>
                     @endforeach
                 </tbody>
@@ -66,7 +75,7 @@
                 <div class="modal-content">
                     <!-- Encabezado del Modal -->
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title">AGREGAR USUARIO</h4>
+                        <h4 class="modal-title font-italic font-weight-bolder">AGREGAR USUARIO</h4>
                         <button type="button" class=" btn btn-danger btn-sm" data-dismiss="modal" wire:click="closeModal">×</button>
                         {{--  --}}
                     </div>
@@ -77,61 +86,57 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <input type="hidden" wire:model="obtenerIdPersona" required>
-                                    <label for="">Buscar Persona:*</label>
-                                    <input type="text" class="form-control buscar" placeholder="Buscar" aria-label="Buscador" wire:model.live="searchPersona" 
+                                    <label for="">Buscar Persona*:</label>
+                                    <input type="text" class="form-control buscar" placeholder="Buscar..." aria-label="Buscador" wire:model.live="searchPersona" 
                                     @if($selectedPersona) disabled @endif>
                                 </div>
                                 <div class="col-md-12 rounded p-3 mt-2" id="contenedorBuscador">
-                                    @isset($personas)
-                                          @if($personas->isNotEmpty())
-                                       <table class="table table-bordered table-sm table-hover">
-                                          <thead class="bg-secondary">
-                                             <tr class="text-center">
-                                                <th>NOMBRE</th>
-                                                <th>CI</th>
-                                                <th>ACCION</th>
-                                             </tr>
-                                          </thead>
-                                          <tbody>
-                                             @foreach($personas as $persona)
-                                                <tr class="persona-row" wire:key="persona-{{$persona->id}}" data-id="{{$persona->id}}" @if($selectedPersona && $obtenerIdPersona != $persona->id) style="display: none;" @endif>
-                                                      <td>{{ $persona->nombre_pers }} {{ $persona->apellido_pers }}</td>
-                                                      <td class="text-center">{{ $persona->ci_pers }}</td>
-                                                      <td class="text-center">
-                                                         <a wire:click="seleccionarPersona({{ $persona->id }})"
-                                                            class="btn @if($obtenerIdPersona == $persona->id) btn-danger @else btn-outline-success @endif btn-sm botones ">
-                                                            @if($obtenerIdPersona == $persona->id)
-                                                                Cancelar
-                                                            @else
-                                                                Seleccionar
-                                                            @endif
-                                                         </a>
-                                                     </td>
-                                                </tr>
-                                             @endforeach
-                                          </tbody>
-                                       </table>
-                                       @else
-                                       <tr>
-                                          <th colspan="3" class="text-center">No hay personas encontradas.</th>
-                                       </tr>
-                                          <p class="text-center"></p>
-                                       @endif
-                                    @endisset
-                                    {{-- {{dd($personas)}} --}}
-                              </div>
+                                    @if(isset($personas) && strlen($searchPersona) > 0)
+                                        @if($personas->isNotEmpty())
+                                            <table class="table table-bordered table-sm table-hover">
+                                                <thead class="bg-secondary">
+                                                    <tr class="text-center">
+                                                        <th>NOMBRE</th>
+                                                        <th>CI</th>
+                                                        <th>ACCION</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($personas as $persona)
+                                                        <tr class="persona-row" wire:key="persona-{{$persona->id}}" data-id="{{$persona->id}}" @if($selectedPersona && $obtenerIdPersona != $persona->id) style="display: none;" @endif>
+                                                            <td>{{ $persona->nombre }} {{ $persona->apellido }}</td>
+                                                            <td class="text-center">{{ $persona->ci }}</td>
+                                                            <td class="text-center">
+                                                                <a wire:click="seleccionarPersona({{ $persona->id }})" class="btn @if($obtenerIdPersona == $persona->id) btn-danger @else btn-outline-success @endif btn-sm botones ">
+                                                                    @if($obtenerIdPersona == $persona->id)
+                                                                        Cancelar
+                                                                    @else
+                                                                        Seleccionar
+                                                                    @endif
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        @else
+                                            <p class="text-center">Ningun dato encontrado.</p>
+                                        @endif
+                                    @endif
+                                </div>
+                                
                               <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <label class="form-label fw-bold">Usuario:*</label>
+                                        <label class="form-label fw-bold">Usuario*:</label>
                                         <input type="email" class="form-control" wire:model="usuarios.email" required>
                                     </div>
                                     <div class="col-md-6 mt-2">
-                                        <label class="form-label fw-bold">Contraseña:*</label>
+                                        <label class="form-label fw-bold">Contraseña*:</label>
                                         <input type="password" class="form-control" wire:model="password" required>
                                     </div>
                                     <div class="col-md-6 mt-2">
-                                        <label class="form-label fw-bold">Confirmar:*</label>
+                                        <label class="form-label fw-bold">Confirmar*:</label>
                                         <input type="password" class="form-control @if($password === $confirmPassword && $confirmPassword !== '') border-success @else border-danger @endif" wire:model.live="confirmPassword" required>
                                     </div>
                                 </div>

@@ -5,7 +5,7 @@
 @livewireStyles
 
 @section('content_header')
-    <h1 class="fw-bold font-italic">Usuario</h1>
+    <h1 class="font-italic font-weight-bolder">Usuario</h1>
 @stop
 
 @section('content')

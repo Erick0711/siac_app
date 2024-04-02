@@ -14,6 +14,7 @@
                 <tbody>
                     @foreach ($roles as $rol)
                         <tr>
+                            <td class="text-center">{{ $loop->iteration }}</td>
                             <td>{{$rol->name}}</td>
                             <td>
                                 <button class="btn btn-warning btn-sm" wire:click="edit({{ $rol->id }})"><i class="fas fa-pencil-alt"></i></button>

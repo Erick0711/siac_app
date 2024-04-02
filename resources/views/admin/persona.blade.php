@@ -21,6 +21,6 @@
     <script src='{{asset('vendor/js/helpers.js')}}'></script>
     <script>
         notificacion();
-        confirmacion('delete', 'eliminar');
+        confirmacion('delete', 'destroy');
     </script>
 @stop
