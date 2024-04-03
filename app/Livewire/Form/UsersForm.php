@@ -7,7 +7,7 @@ use Livewire\Form;
 
 class UsersForm extends Form
 {
-    public $persona_id;
+    public $id_persona;
     public $name;
     public $email;
     public $password;

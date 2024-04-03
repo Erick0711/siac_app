@@ -72,10 +72,10 @@ class UserLivewire extends Component
 
         if(!empty($this->searchPersona))
         {
-            $personas = Persona::where('nombre_pers', 'like', '%' . $this->searchPersona . '%')
-                                ->orWhere('apellido_pers', 'like', '%' . $this->searchPersona . '%')
-                                ->orWhere('ci_pers', 'like', '%' . $this->searchPersona . '%')
-                                ->orWhere('correo_pers', 'like', '%' . $this->searchPersona . '%')
+            $personas = Persona::where('nombre', 'like', '%' . $this->searchPersona . '%')
+                                ->orWhere('apellido', 'like', '%' . $this->searchPersona . '%')
+                                ->orWhere('ci', 'like', '%' . $this->searchPersona . '%')
+                                ->orWhere('correo', 'like', '%' . $this->searchPersona . '%')
                                 ->orderBy('id','desc')
                                 ->limit(5)
                                 ->get();
@@ -117,17 +117,17 @@ class UserLivewire extends Component
 
     public function create()
     {
-        $this->usuarios->persona_id = $this->obtenerIdPersona;
+        $this->usuarios->id_persona = $this->obtenerIdPersona;
 
         // dd($this->usuarios->persona_id);
         // Buscamos el dato nombre y apellido en la persona
         $persona = Persona::find($this->obtenerIdPersona);
 
-        $nombre_persona = $persona->nombre_pers ." ". $persona->apellido_pers;
+        $nombre_persona = $persona->nombre ." ". $persona->apellido;
 
 
         $usuario =  User::create([
-            'persona_id' => $this->usuarios->persona_id, 
+            'id_persona' => $this->usuarios->id_persona, 
             'name' => $nombre_persona,
             'email' => $this->usuarios->email,
             'password' => Hash::make($this->usuarios->password),
@@ -143,6 +143,11 @@ class UserLivewire extends Component
     //     dd($this->password);
     // }
     
+    public function resetPassword()
+    {
+        
+    }
+
     #[On('delete')]
     public function eliminar($id)
     {

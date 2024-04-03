@@ -71,18 +71,41 @@
                                     <input class="form-control" type="text" wire:model="rol.name" required>
                                 </div>
 
-                                <div class="col-md-12">
-                                    <label for="">Lista permisos:</label>
-                                    @foreach ($permissions as $permission)
-                                        <div>
-                                            {{-- <label for="">{{ $permission->id }}</label> --}}
-                                            <label for="">
-                                                <input type="checkbox" wire:model="selectedPermission.{{ $permission->id }}">
-                                                {{$permission->description}}
-                                            </label>
-                                        </div>
-                                    @endforeach
+                                <div class="col-md-12 mt-4">
+                                    <input class="form-control" type="search" wire:model.live="searchPermission" placeholder="Buscar Permiso...">
                                 </div>
+
+                                <div class="col-md-12">
+                                    <table class="table table-sm table-bordered mt-4">
+                                        <thead class="thead-dark">
+                                            <tr class="text-center">
+                                                <th>#</th>
+                                                <th>PERMISO</th>
+                                                <th>DESCRIPCION</th>
+                                                <th>MODULO</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if($permissions->count())
+                                                @foreach ($permissions as $permission)
+                                                    <tr>
+                                                        <td class="text-center">{{ $loop->iteration }}</td>
+                                                        <th>{{$permission->name}}</th>
+                                                        <th>{{$permission->description}}</th>
+                                                        <th>{{$permission->nombre}}</th>
+                                                        <th><input type="checkbox" wire:model="selectedPermission.{{ $permission->id }}"></th>
+                                                    </tr>
+                                                @endforeach
+                                            @else
+                                            <tr>
+                                                <td class="text-center" colspan="4">Ningun registro encontrado</td>
+                                            </tr>
+                                        @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+
                             </div>
                             {{-- @if ($errors->any())
                                 <div class="alert alert-danger">
@@ -181,7 +204,7 @@
                             @endif --}}
                             <div class="row d-flex justify-content-end mt-4">
                                 @if($permissions->count() > 0)
-                                    <x-button class="btn-success btn-sm">Guardar</x-button>
+                                    <x-button class="btn-success btn-sm">Actualizar</x-button>
                                 @endif
                             </div>
                         </form>

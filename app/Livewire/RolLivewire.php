@@ -24,10 +24,15 @@ class RolLivewire extends Component
 
     public RolForm $rol;
 
+    public function resetAttribute()
+    {
+        $this->reset(['openModalNew', 'openModalEdit', 'search', 'rol', 'selectedPermission', 'searchPermission']);
+    }
     
     public function closeModal()
     {
-        $this->reset(['openModalNew', 'openModalEdit', 'search', 'rol', 'selectedPermission', 'searchPermission']);
+        $this->resetAttribute();
+        // $this->reset(['openModalNew', 'openModalEdit', 'search', 'rol', 'selectedPermission', 'searchPermission']);
     }
 
     public function render()
@@ -49,6 +54,7 @@ class RolLivewire extends Component
         ]);
         $selectedPermission = array_keys(array_filter($this->selectedPermission));
         $role->permissions()->sync($selectedPermission);
+        $this->resetAttribute();
     }
 
     public function edit($id)
@@ -79,6 +85,7 @@ class RolLivewire extends Component
         $selectedPermission = array_keys(array_filter($this->selectedPermission));
         $rol->permissions()->sync($selectedPermission);
         $this->dispatch('notificar', message: true);
+        $this->resetAttribute();
     }
 
     #[On('delete')]

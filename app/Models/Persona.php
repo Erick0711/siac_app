@@ -18,8 +18,9 @@ class Persona extends Model
         'nombre',
         'apellido',
         'ci',
-        'complemento',
+        'complemento_ci',
         'correo',
+        'fecha_nac',
         'telefono',
         'telefono2',
         'estado'
