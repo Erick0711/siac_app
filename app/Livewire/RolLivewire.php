@@ -3,16 +3,20 @@
 namespace App\Livewire;
 
 use App\Livewire\Form\RolForm;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-
+use Livewire\WithPagination;
 class RolLivewire extends Component
 {
+    use WithPagination;
     
     protected $paginationTheme = 'bootstrap';
+    public $searchPermission;
     public $search;
+
     public $openModalEdit = false;
     public $openModalNew = false;
     public $selectedPermission = [];
@@ -23,13 +27,18 @@ class RolLivewire extends Component
     
     public function closeModal()
     {
-        $this->reset(['openModalNew', 'openModalEdit', 'search', 'rol', 'selectedPermission']);
+        $this->reset(['openModalNew', 'openModalEdit', 'search', 'rol', 'selectedPermission', 'searchPermission']);
     }
 
     public function render()
     {
         $roles = Role::all();
-        $permissions = Permission::all();
+        // $permissions = Permission::paginate(5);
+        $permissions = DB::table('v_permission')
+                        ->where('name', 'like', '%' . $this->searchPermission . '%')
+                        ->orWhere('nombre', 'like', '%' . $this->searchPermission . '%')
+                        ->paginate(5);
+
         return view('livewire.rol.rol-livewire', compact('roles','permissions'));
     }
 
@@ -48,6 +57,7 @@ class RolLivewire extends Component
         $this->idRol = $id;
         $rol = Role::find($id);
         $this->rol->name = $rol->name;
+        
         // Obtener los permisos asociados al rol
         $selectedPermissions = $rol->permissions->pluck('id')->toArray();
 

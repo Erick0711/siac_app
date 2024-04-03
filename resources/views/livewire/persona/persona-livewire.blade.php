@@ -26,6 +26,7 @@
                             <th>NOMBRE</th>
                             <th>APELLIDO</th>
                             <th>CI</th>
+                            <th>PAIS</th>
                             <th>CORREO</th>
                             <th>TELEFONO</th>
                             <th>ACCIONES</th>
@@ -35,11 +36,12 @@
                         @foreach ($personas as $persona)
                             <tr>
                                 <td class="text-center">{{ $loop->iteration }}</td>
-                                <td>{{$persona->nombre_pers}}</td>
-                                <td>{{$persona->apellido_pers}}</td>
-                                <td>{{$persona->ci_pers}}</td>
-                                <td>{{$persona->correo_pers}}</td>
-                                <td>{{$persona->telefono_pers}}</td>
+                                <td>{{$persona->nombre}}</td>
+                                <td>{{$persona->apellido}}</td>
+                                <td>{{$persona->ci ."-".$persona->complemento_ci}}</td>
+                                <td>{{$persona->pais}}</td>
+                                <td>{{$persona->correo}}</td>
+                                <td>{{$persona->telefono}}</td>
 
                                 <td class="text-center">
                                     {{-- @can('register') --}}
@@ -65,6 +67,68 @@
                 </div>
             @endif
         </div>
+
+
+
+        {{-- *** MODAL AGREGAR PERSONA --}}
+
+        @if ($openModalNew)
+        <!-- Modal -->
+            <div class="modal" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: block" aria-modal="true" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <!-- Encabezado del Modal -->
+                        <div class="modal-header bg-primary">
+                            <h4 class="modal-title">NUEVO ROL</h4>
+                            <button type="button" class=" btn btn-danger btn-sm" data-dismiss="modal" wire:click="closeModal">×</button>
+                        </div>
+            
+                        <!-- Contenido del Modal -->
+                        <div class="modal-body">
+                            <form wire:submit="created">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="">Nombre Rol:</label>
+                                        <input class="form-control" type="text" wire:model="rol.name" required>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <label for="">Lista permisos:</label>
+                                        @foreach ($permissions as $permission)
+                                            <div>
+                                                {{-- <label for="">{{ $permission->id }}</label> --}}
+                                                <label for="">
+                                                    <input type="checkbox" wire:model="selectedPermission.{{ $permission->id }}">
+                                                    {{$permission->description}}
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                {{-- @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif --}}
+                                <div class="row d-flex justify-content-end mt-4">
+                                    <x-button class="btn-success btn-sm">Guardar</x-button>
+                                </div>
+                            </form>
+                        </div>
+            
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        {{-- *** FIN MODAL AGREGAR PERSONA --}}
 
 {{-- **** FIN CONTENEDOR **** --}}
 </div>
