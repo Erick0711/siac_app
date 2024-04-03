@@ -29,6 +29,8 @@ class UserLivewire extends Component
 
     public $openModalEdit = false;
     public $openModalNew = false;
+    public $openModalResetPassword = false;
+
     public $idUsuario;
     public $selectedRoles = [];
     public $selectedRolesUser;
@@ -51,9 +53,14 @@ class UserLivewire extends Component
         }
     }
 
+    public function resetAttribute()
+    {
+        $this->reset(['openModalNew', 'openModalEdit','openModalResetPassword','obtenerIdPersona', 'usuarios', 'search', 'selectedPersona', 'searchPersona', 'selectedRoles', 'idUsuario']);
+    }
+
     public function closeModal()
     {
-        $this->reset(['openModalNew', 'openModalEdit', 'idUsuario', 'usuarios']);
+        $this->resetAttribute();
     }
 
     public function updatingSearch()
@@ -112,7 +119,8 @@ class UserLivewire extends Component
 
         $request->roles()->sync($selectedRoles);
         $this->dispatch('notificar', message: true);
-       $this->reset(['openModalNew', 'openModalEdit','obtenerIdPersona', 'usuarios', 'search', 'selectedPersona', 'searchPersona', 'selectedRoles', 'idUsuario']);
+        $this->resetAttribute();
+
     }
 
     public function create()
@@ -135,7 +143,8 @@ class UserLivewire extends Component
 
        $response = $usuario ? true : false;
        $this->dispatch('notificar', message: $response);
-       $this->reset(['openModalNew', 'obtenerIdPersona', 'usuarios', 'search', 'selectedPersona', 'searchPersona']);
+       $this->resetAttribute();
+
     }
 
     // public function changePassword()
@@ -143,9 +152,24 @@ class UserLivewire extends Component
     //     dd($this->password);
     // }
     
-    public function resetPassword()
+    public function resetPassword($id)
     {
-        
+        $this->openModalResetPassword = true;
+        $this->idUsuario = $id;
+    }
+
+    public function updatePassword()
+    {
+        $id = $this->idUsuario;
+        // dd($id);
+        $user = User::find($id);
+        $usuario = $user->update([
+            'password' => Hash::make($this->usuarios->password)
+        ]);
+
+       $response = $usuario ? true : false;
+       $this->dispatch('notificar', message: $response);
+       $this->resetAttribute();
     }
 
     #[On('delete')]

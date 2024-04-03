@@ -50,8 +50,10 @@
                                             <button class="btn btn-primary btn-sm" wire:click="$dispatch('confirmDelete', {{ $user->id }})"><i class="fas fa-history"></i></button>
                                         @endif
                                     @endcan
+
+                                    <button class="btn btn-primary btn-sm" wire:click="resetPassword({{$user->id}})"><i class="fas fa-redo"></i></button>
                                 </td>
-                            @endcan()
+                            @endcan
                         </tr>
                     @endforeach
                 </tbody>
@@ -217,4 +219,46 @@
         </div>
     @endif
 
+
+        {{-- * MODAL --}}
+        @if ($openModalResetPassword)
+        <!-- Modal -->
+        <div class="modal" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: block" aria-modal="true" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Encabezado del Modal -->
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title font-italic font-weight-bold">CAMBIAR CONTRASEÑA</h4>
+                        <button type="button" class=" btn btn-danger btn-sm" data-dismiss="modal" wire:click="closeModal">×</button>
+                        {{--  --}}
+                    </div>
+        
+                    <!-- Contenido del Modal -->
+                    <div class="modal-body">
+                        <form wire:submit="updatePassword">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="">Contraseña:</label>
+                                    <input class="form-control" type="text" wire:model="usuarios.password" required>
+                                </div>
+                            </div>
+                            {{-- @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif --}}
+                            <div class="row d-flex justify-content-end mt-4">
+                                <x-button class="btn-success btn-sm">Guardar</x-button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
