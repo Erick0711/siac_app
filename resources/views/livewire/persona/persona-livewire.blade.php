@@ -28,6 +28,7 @@
                             <th>NOMBRE</th>
                             <th>APELLIDO</th>
                             <th>CI</th>
+                            <th>GÉNERO</th>
                             <th>PAIS</th>
                             <th>CORREO</th>
                             <th>TELEFONO</th>
@@ -43,6 +44,7 @@
                                 <td>{{$persona->nombre}}</td>
                                 <td>{{$persona->apellido}}</td>
                                 <td>{{$persona->ci ."-".$persona->complemento_ci}}</td>
+                                <td>{{$persona->genero}}</td>
                                 <td>{{$persona->pais}}</td>
                                 <td>{{$persona->correo}}</td>
                                 <td>{{$persona->telefono}}</td>
@@ -161,7 +163,7 @@
 
 
         {{-- * MODAL --}}
-        @if ($openModalEdit)
+    @if ($openModalEdit)
     <!-- Modal -->
     <div class="modal bd-example-modal-lg" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: block" aria-modal="true" role="dialog">
         <div class="modal-dialog modal-lg">

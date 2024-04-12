@@ -338,8 +338,13 @@ return [
             ],
         ],
         [
-            'text' => 'persona',
+            'text' => 'Persona',
             'url'  => 'persona',
+            'icon' => 'fas fa-user-friends',
+        ],
+        [
+            'text' => 'Funcionario',
+            'url'  => 'funcionario',
             'icon' => 'fas fa-user-friends',
         ],
         // [

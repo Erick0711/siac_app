@@ -36,6 +36,7 @@ Route::view('/usuario', 'admin.user')->middleware('can:login')->name('user');
 Route::view('/rol', 'admin.rol')->middleware('can:login')->name('rol');
 Route::view('/persona', 'admin.persona')->middleware('can:mostrar-persona')->name('persona');
 Route::view('/persona', 'admin.persona')->middleware('can:editar-persona')->name('persona');
+Route::view('/funcionario', 'admin.funcionario')->middleware('can:editar-persona')->name('persona');
 Route::view('/permisos', 'admin.permission')->middleware('can:login')->name('permission');
 
 
