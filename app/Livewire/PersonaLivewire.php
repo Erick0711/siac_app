@@ -26,6 +26,8 @@ class PersonaLivewire extends Component
     public function closeModal()
     {
         $this->reset(['openModalNew', 'openModalEdit']);
+        // $this->resetErrorBag();
+        $this->resetValidation();
     }
 
     public function render()

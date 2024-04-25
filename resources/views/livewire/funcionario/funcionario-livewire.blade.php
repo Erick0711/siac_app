@@ -27,6 +27,7 @@
                                     <th>#</th>
                                     <th>FUNCIONARIO</th>
                                     <th>CI</th>
+                                    <th>CARGO</th>
                                     <th>SALARIO</th>
                                     @can('funciones-funcionario')
                                         <th>ACCIONES</th>
@@ -39,13 +40,14 @@
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         <td>{{$funcionario->persona}}</td>
                                         <td>{{$funcionario->ci}}</td>
+                                        <td>{{$funcionario->cargo}}</td>
                                         <td>{{$funcionario->salario}}</td>
-                                        @can('funciones-funcinario')
+                                        @can('funciones-funcionario')
                                             <td class="text-center">
-                                                @can('editar-persona')
+                                                @can('editar-funcionario')
                                                     <button class="btn btn-warning btn-sm" wire:click="edit({{ $funcionario->id }})"><i class="fas fa-pencil-alt"></i></button>
                                                 @endcan
-                                                @can('eliminar-persona')
+                                                @can('eliminar-funcionario')
                                                     @if ($funcionario->estado == 1)
                                                         <button class="btn btn-danger btn-sm" wire:click="$dispatch('confirmDelete', {{ $funcionario->id }})"><i class="fas fa-trash"></i></button>
                                                     @else
@@ -69,7 +71,7 @@
                 @endif
             </div>
 
-                {{-- * MODAL --}}
+    {{-- * MODAL --}}
     @if ($openModalNew)
     <!-- Modal -->
     <div class="modal bd-example-modal-lg" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: block" aria-modal="true" role="dialog">
@@ -79,7 +81,7 @@
                 <!-- Encabezado del Modal -->
                 <div class="modal-header bg-primary">
                     <h4 class="modal-title font-italic font-weight-bold">NUEVA PERSONA</h4>
-                    <button type="button" class=" btn btn-danger btn-sm" data-dismiss="modal" wire:click="closeModal">×</button>
+                    <button type="button" class="btn btn-danger btn-sm buttonCerrarModal" data-dismiss="modal" wire:click="closeModal">×</button>
                 </div>
     
                 <!-- Contenido del Modal -->
@@ -139,7 +141,7 @@
                                 <label for="">Salario*:</label>
                                 <input type="text" wire:model="funcionario.salario" class="form-control form-control-sm" required>
                             </div>
-                            <div class="col-md-12 mt-4">
+                            <div class="col-md-12 mt-4 validate">
                                 @if ($errors->any())
                                 <div class="alert alert-danger">
                                         <ul>
@@ -195,7 +197,7 @@
                                            <label for="">Salario*:</label>
                                            <input type="text" wire:model="funcionario.salario" class="form-control form-control-sm" required>
                                        </div>
-                                       <div class="col-md-12 mt-4">
+                                       <div class="col-md-12 mt-4 validate">
                                            @if ($errors->any())
                                            <div class="alert alert-danger">
                                                    <ul>

@@ -1,15 +1,15 @@
 @extends('adminlte::page')
 
 @section('plugins.Sweetalert2', true)
-@section('title', 'Persona')
+@section('title', 'Cargo')
 @livewireStyles
 
 @section('content_header')
-    <h1 class="fw-bold font-italic">Funcionario</h1>
+    <h1 class="fw-bold font-italic">Copropietario</h1>
 @stop
 
 @section('content')
-    @livewire('FuncionarioLivewire')
+    @livewire('CopropietarioLivewire')
 @stop
 @livewireScripts
 

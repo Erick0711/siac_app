@@ -5,13 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pais extends Model
+class Apartamento extends Model
 {
     use HasFactory;
-
-    protected $table = "pais";
+    protected $table = "apartamento";
+    
     protected $fillable = [
         'nombre',
+        'numero_apartamento',
+        'estado'
     ];
 
     protected $timestamp = false;

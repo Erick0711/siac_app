@@ -56,4 +56,18 @@ function confirmacion(component, metodo)
         });
     });
 }
-
+const buttonCerraModal = document.querySelectorAll(".buttonCerraModal");
+    buttonCerraModal.forEach(button => {
+        button.addEventListener('click', () => {
+            if(button.classList.contains('buttonCerraModal'))
+            {
+                // mensaje.parentNode.innerHTML = '';
+                console.log("Cerro modal");
+            }
+        });
+    });
+    
+function removerMensajeValidacion()
+{
+    
+}

@@ -23,7 +23,7 @@ class FuncionarioForm extends Form
     public function messages()
     {
         return [
-            'id_persona.required' => 'El campo ID de persona es requerido.',
+            'id_persona.required' => 'Debes buscar y seleccionar una persona.',
             'id_persona.exists' => 'El campo ID de persona debe ser un valor numérico.',
             'id_cargo.required' => 'El campo ID de cargo es requerido.',
             'id_cargo.exists' => 'El campo ID de cargo debe ser un valor numérico.',

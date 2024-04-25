@@ -24,6 +24,8 @@ class PermissionLivewire extends Component
     public function closeModal()
     {
         $this->reset(['openModalEdit', 'openModalNew', 'permission']);
+        // $this->resetErrorBag();
+        $this->resetValidation();
     }
 
     public function updatingSearch()

@@ -10,7 +10,7 @@ use App\Models\Persona;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
-
+use Illuminate\Support\Facades\Session;
 class FuncionarioLivewire extends Component
 {
     use WithPagination;
@@ -30,12 +30,16 @@ class FuncionarioLivewire extends Component
     public function resetAttribute()
     {
         $this->reset(['openModalNew', 'openModalEdit', 'search', 'funcionario', 'selectedPersona', 'obtenerIdPersona', 'idFuncionario', 'searchPersona']);
+        
+        // Restablecer los errores de validación
     }
     
 
     public function closeModal()
     {
-       $this->resetAttribute();
+        $this->resetAttribute();
+        // $this->resetErrorBag();
+        $this->resetValidation();
     }
 
     public function render()

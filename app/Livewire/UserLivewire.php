@@ -61,6 +61,8 @@ class UserLivewire extends Component
     public function closeModal()
     {
         $this->resetAttribute();
+        // $this->resetErrorBag();
+        $this->resetValidation();
     }
 
     public function updatingSearch()

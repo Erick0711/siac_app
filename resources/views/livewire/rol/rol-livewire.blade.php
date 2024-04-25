@@ -93,7 +93,7 @@
                                                         <td class="text-center">{{ $loop->iteration }}</td>
                                                         <th>{{$permission->name}}</th>
                                                         <th>{{$permission->description}}</th>
-                                                        <th>{{$permission->nombre}}</th>
+                                                        {{-- <th>{{$permission->nombre}}</th> --}}
                                                         <th><input type="checkbox" wire:model="selectedPermission.{{ $permission->id }}"></th>
                                                     </tr>
                                                 @endforeach
@@ -177,7 +177,7 @@
                                                         <td class="text-center">{{ $loop->iteration }}</td>
                                                         <th>{{$permission->name}}</th>
                                                         <th>{{$permission->description}}</th>
-                                                        <th>{{$permission->nombre}}</th>
+                                                        {{-- <th>{{$permission->nombre}}</th> --}}
                                                         <th><input type="checkbox" wire:model="selectedPermission.{{ $permission->id }}"></th>
                                                     </tr>
                                                 @endforeach

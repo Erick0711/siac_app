@@ -5,13 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pais extends Model
+class Copropietario extends Model
 {
     use HasFactory;
-
-    protected $table = "pais";
+    protected $table = "copropietario";
+    
     protected $fillable = [
-        'nombre',
+        'id_persona',
+        'id_apartamento',
+        'cant_residentes',
+        'cant_mascotas',
+        'estado'
     ];
 
     protected $timestamp = false;

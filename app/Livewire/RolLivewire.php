@@ -32,6 +32,8 @@ class RolLivewire extends Component
     public function closeModal()
     {
         $this->resetAttribute();
+        // $this->resetErrorBag();
+        $this->resetValidation();
         // $this->reset(['openModalNew', 'openModalEdit', 'search', 'rol', 'selectedPermission', 'searchPermission']);
     }
 
@@ -41,7 +43,7 @@ class RolLivewire extends Component
         // $permissions = Permission::paginate(5);
         $permissions = DB::table('v_permission')
                         ->where('name', 'like', '%' . $this->searchPermission . '%')
-                        ->orWhere('nombre', 'like', '%' . $this->searchPermission . '%')
+                        // ->orWhere('nombre', 'like', '%' . $this->searchPermission . '%')
                         ->paginate(5);
 
         return view('livewire.rol.rol-livewire', compact('roles','permissions'));
