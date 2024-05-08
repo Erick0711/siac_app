@@ -4,7 +4,7 @@
         <div class="card-header">
             <div class="row d-flex justify-content-between">
                 <div class="col-md-1">
-                    @can('agregar-cargo')
+                    @can('agregar-pabellon')
                         <button class="btn btn-success btn-md" wire:click="$toggle('openModalNew')"><i class="fas fa-plus-square"></i></button>
                     @endcan
                 </div>
@@ -17,37 +17,34 @@
                     </div>
                 </div>
             </div>
-
         </div>
-        @if($cargos->count())
+        @if($pabellones->count())
         <div class="card-body">
             <table class="table table-sm table-bordered table-hover ">
                 <thead class="thead-dark">
                     <tr class="text-center">
                         <th>#</th>
-                        <th>NOMBRE</th>
-                        <th>DESCRIPCIÓN</th>
-                        @can('funciones-cargo')
+                        <th>NUMERO PABELLON</th>
+                        @can('funciones-pabellon')
                             <th>ACCIONES</th>
                         @endcan
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($cargos as $cargo)
+                    @foreach ($pabellones as $pabellon)
                         <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
-                            <td>{{$cargo->nombre}}</td>
-                            <td>{{$cargo->descripcion}}</td>
-                            @can('funciones-cargo')
+                            <td>{{$pabellon->numero_pabellon}}</td>
+                            @can('funciones-pabellon')
                                 <td class="text-center">
-                                    @can('editar-cargo')
-                                        <button class="btn btn-warning btn-sm" wire:click="edit({{ $cargo->id }})"><i class="fas fa-pencil-alt"></i></button>
+                                    @can('editar-pabellon')
+                                        <button class="btn btn-warning btn-sm" wire:click="edit({{ $pabellon->id }})"><i class="fas fa-pencil-alt"></i></button>
                                     @endcan
-                                    @can('eliminar-cargo')
-                                        @if ($cargo->estado == 1)
-                                            <button class="btn btn-danger btn-sm" wire:click="$dispatch('confirmDelete', {{ $cargo->id }})"><i class="fas fa-trash"></i></button>
+                                    @can('eliminar-pabellon')
+                                        @if ($pabellon->estado == 1)
+                                            <button class="btn btn-danger btn-sm" wire:click="$dispatch('confirmDelete', {{ $pabellon->id }})"><i class="fas fa-trash"></i></button>
                                         @else
-                                            <button class="btn btn-primary btn-sm" wire:click="$dispatch('confirmDelete', {{ $cargo->id }})"><i class="fas fa-history"></i></button>
+                                            <button class="btn btn-primary btn-sm" wire:click="$dispatch('confirmDelete', {{ $pabellon->id }})"><i class="fas fa-history"></i></button>
                                         @endif
                                     @endcan
                                 </td>
@@ -58,7 +55,7 @@
             </table>
         </div>
         <div class="card-footer">
-            {{$cargos->links()}}
+            {{$pabellones->links()}}
         </div>
         @else
             <div class="card-body">
@@ -76,7 +73,7 @@
 
                     <!-- Encabezado del Modal -->
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title">NUEVO ROL</h4>
+                        <h4 class="modal-title">AGREGAR PABELLON</h4>
                         <button type="button" class=" btn btn-danger btn-sm" data-dismiss="modal" wire:click="closeModal">×</button>
                     </div>
         
@@ -85,13 +82,8 @@
                         <form wire:submit="created">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <label for="">Cargo*:</label>
-                                    <input class="form-control" type="text" wire:model="cargo.nombre" required>
-                                </div>
-
-                                <div class="col-md-12 mt-4">
-                                    <label for="">Descripción*:</label>
-                                    <textarea class="form-control" wire:model="cargo.descripcion" required></textarea>
+                                    <label for="">Pabellon*:</label>
+                                    <input class="form-control" type="text" wire:model="pabellon.numero_pabellon" required>
                                 </div>
                             </div>
 
@@ -118,7 +110,7 @@
   
                       <!-- Encabezado del Modal -->
                       <div class="modal-header bg-primary">
-                          <h4 class="modal-title">EDITAR ROL</h4>
+                          <h4 class="modal-title">EDITAR PABELLON</h4>
                           <button type="button" class=" btn btn-danger btn-sm" data-dismiss="modal" wire:click="closeModal">×</button>
                       </div>
           
@@ -127,13 +119,8 @@
                           <form wire:submit="update">
                               <div class="row">
                                   <div class="col-md-12">
-                                      <label for="">Cargo*:</label>
-                                      <input class="form-control" type="text" wire:model="cargo.nombre" required>
-                                  </div>
-  
-                                  <div class="col-md-12 mt-4">
-                                      <label for="">Descripción*:</label>
-                                      <textarea class="form-control" wire:model="cargo.descripcion" required></textarea>
+                                      <label for="">Pabellon*:</label>
+                                      <input class="form-control" type="text" wire:model="pabellon.numero_pabellon" required>
                                   </div>
                               </div>
   

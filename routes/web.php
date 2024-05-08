@@ -39,8 +39,17 @@ Route::view('/permisos', 'admin.permission')->middleware('can:login')->name('per
 Route::view('/persona', 'admin.persona')->middleware('can:mostrar-persona')->name('persona');
 // Route::view('/persona', 'admin.persona')->middleware('can:mostrar-persona')->name('persona');
 Route::view('/funcionario', 'admin.funcionario')->middleware('can:mostrar-funcionario')->name('persona');
-Route::view('/cargo', 'admin.cargo')->middleware('can:login')->name('cargo');
-Route::view('/copropietario', 'admin.copropietario')->middleware('can:login')->name('copropietario');
+
+Route::view('/cargo', 'admin.cargo')->middleware('can:mostrar-cargo')->name('cargo');
+Route::view('/copropietario', 'admin.copropietario')->middleware('can:mostrar-copropietario')->name('copropietario');
+Route::view('/apartamento', 'admin.apartamento')->middleware('can:mostrar-apartamento')->name('apartamento');
+Route::view('/pabellon', 'admin.pabellon')->middleware('can:mostrar-pabellon')->name('pabellon');
+Route::view('/estacionamiento', 'admin.estacionamiento')->middleware('can:mostrar-estacionamiento')->name('estacionamiento');
+Route::view('/vehiculo', 'admin.vehiculo')->middleware('can:mostrar-vehiculo')->name('vehiculo');
+
+
+
+
 
 
 

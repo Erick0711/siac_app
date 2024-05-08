@@ -49,6 +49,7 @@ class CopropietarioLivewire extends Component
                             ->orWhere('apellido', 'like', '%' . $this->search . '%')
                             ->orWhere('ci', 'like', '%' . $this->search . '%')
                             ->orWhere('pais', 'like', '%' . $this->search . '%')
+                            ->orWhere('numero_apartamento', 'like', '%' . $this->search . '%')
                             ->orderBy('id','desc')
                             ->paginate(10);
 
@@ -65,7 +66,7 @@ class CopropietarioLivewire extends Component
                                 ->get();
         }
 
-        $apartamentos = Apartamento::where('estado', 1)->get();
+        $apartamentos = Apartamento::all();
 
         return view('livewire.copropietario.copropietario-livewire', compact('copropietarios', 'personas', 'apartamentos'));
     }
@@ -84,7 +85,7 @@ class CopropietarioLivewire extends Component
     public function created()
     {
         $this->copropietario->id_persona = $this->obtenerIdPersona;
-        // $this->funcionario->validate();
+        $this->copropietario->validate();
 
         $copropietario = Copropietario::create([
             'id_persona' => $this->copropietario->id_persona, 
@@ -92,10 +93,53 @@ class CopropietarioLivewire extends Component
             'cant_residentes' => $this->copropietario->cant_residentes, 
             'cant_mascotas' => $this->copropietario->cant_mascotas, 
         ]);
-       $response = $copropietario ? true : false;
-       $this->dispatch('notificar', message: $response);
-       $this->resetAttribute();
+        $response = $copropietario ? true : false;
+        $this->dispatch('notificar', message: $response);
+        $this->resetAttribute();
     }
 
+    public function edit($id)
+    {
+        $this->idCopropietario = $id;
+        $copropietario = Copropietario::find($id);
 
+        // dd($this->idCopropietario);
+        $this->copropietario->fill([
+            'id_persona' => $copropietario->id_persona, 
+            'id_apartamento' => $copropietario->id_apartamento, 
+            'cant_residentes' => $copropietario->cant_residentes, 
+            'cant_mascotas' => $copropietario->cant_mascotas, 
+        ]);
+
+        $this->openModalEdit = true;
+    }
+
+    public function update()
+    {
+        $id = $this->idCopropietario;
+
+        $this->copropietario->validate();
+
+        $copropietarios = Copropietario::find($id);
+        $copropietario = $copropietarios->update($this->copropietario->only('id_apartamento','cant_residentes','cant_mascotas'));
+
+        $response = $copropietario ? true : false;
+        $this->resetAttribute();
+        $this->dispatch('notificar', message: $response);
+    }
+
+    #[On('delete')]
+    public function destroy($id)
+    {  
+        $copropietario = Copropietario::find($id);
+        $estado = $copropietario->estado;
+
+        if($estado == 1)
+        {
+            $copropietario->estado = 0;
+        }else{
+            $copropietario->estado = 1;
+        }
+        $copropietario->save();
+    }
 }

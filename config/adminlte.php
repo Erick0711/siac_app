@@ -326,27 +326,97 @@ return [
                 [
                     'text' => 'Rol',
                     'url'  => 'rol',
+                    
                 ],
                 [
                     'text' => 'Permisos',
                     'url'  => 'permisos',
+
                 ],
                 [
                     'text' => 'Usuarios',
                     'url'  => 'usuario',
+
+                ],
+            ],
+        ],
+
+        [
+            'text'    => 'Personas',
+            'icon'    => 'fas fa-user-friends',
+            'url'  => 'persona',
+            'can' => 'mostrar-persona'
+        ],
+
+        [
+            'text'    => 'Funcionarios',
+            'icon'    => 'fas fa-portrait',
+            'submenu' => [
+                [
+                    'text' => 'Funcionario',
+                    'url'  => 'funcionario',
+                    'can' => 'mostrar-funcionario'
+                ],
+                [
+                    'text' => 'Cargo',
+                    'url'  => 'cargo',
+                    'can' => 'mostrar-cargo'
+                ],
+            ],
+        ],
+
+        [
+            'text'    => 'Copropietarios',
+            'icon'    => 'fas fa-house-user',
+            'submenu' => [
+                [
+                    'text' => 'Copropietario',
+                    'url'  => 'copropietario',
+                    'can' => 'mostrar-copropietario'
+                ],
+                [
+                    'text' => 'Apartamento',
+                    'url'  => 'apartamento',
+                    'can' => 'mostrar-apartamento'
                 ],
             ],
         ],
         [
-            'text' => 'Persona',
-            'url'  => 'persona',
-            'icon' => 'fas fa-user-friends',
+            'text'    => 'Pagos',
+            'icon'    => 'fas fa-cash-register',
+            'submenu' => [
+                [
+                    'text' => 'Pago',
+                    'url'  => 'pago',
+                    'can' => 'mostrar-persona'
+                ],
+                [
+                    'text' => 'Tipo pago',
+                    'url'  => 'tipoPago',
+                    'can' => 'mostrar-persona'
+                ],
+            ],
         ],
         [
-            'text' => 'Funcionario',
-            'url'  => 'funcionario',
-            'icon' => 'fas fa-user-friends',
+            'text'    => 'Vehiculos',
+            'icon'    => 'fas fa-car-side',
+            'submenu' => [
+                [
+                    'text' => 'Vehiculo',
+                    'url'  => 'vehiculo',
+                    'can' => 'mostrar-persona'
+                ],
+                [
+                    'text' => 'Estacionamiento',
+                    'url'  => 'estacionamiento',
+                ],
+                [
+                    'text' => 'Pabellon',
+                    'url'  => 'pabellon',
+                ],
+            ],
         ],
+
         // [
         //     'text' => 'change_password',
         //     'url'  => 'admin/settings',

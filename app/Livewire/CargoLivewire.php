@@ -43,6 +43,8 @@ class CargoLivewire extends Component
 
     public function created()
     {
+        $this->cargo->validate();
+
         $cargo =  Cargo::create([
             'nombre' => $this->cargo->nombre, 
             'descripcion' => $this->cargo->descripcion, 
@@ -70,7 +72,7 @@ class CargoLivewire extends Component
     {
         $id = $this->idCargo;
 
-        // $this->funcionario->validate();
+        $this->cargo->validate();
         $cargo = Cargo::find($id);
         $cargo = $cargo->update($this->cargo->only('nombre','descripcion'));
 
