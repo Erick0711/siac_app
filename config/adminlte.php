@@ -398,6 +398,31 @@ return [
             ],
         ],
         [
+            'text'    => 'Articulo',
+            'icon'    => 'fas fa-wallet',
+            'submenu' => [
+                [
+                    'text' => 'Articulo',
+                    'url'  => 'articulo',
+                    // 'can' => 'mostrar-tipoarticulo'
+                ],
+                [
+                    'text' => 'Tipo Articulo',
+                    'url'  => 'tipoarticulo',
+                    // 'can' => 'mostrar-tipoarticulo'
+                ],
+                [
+                    'text' => 'Periodo',
+                    'url'  => 'periodo',
+                ],
+                [
+                    'text' => 'Gestion',
+                    'url'  => 'gestion',
+                ],
+             
+            ],
+        ],
+        [
             'text'    => 'Vehiculos',
             'icon'    => 'fas fa-car-side',
             'submenu' => [
