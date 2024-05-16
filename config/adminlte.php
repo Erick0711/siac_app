@@ -317,6 +317,7 @@ return [
             'text'        => 'Inicio',
             'url'         => '/',
             'icon'        => 'fas fa-home',
+            'can' => 'login',
             // 'label'       => 4,
             // 'label_color' => 'success',
         ],
@@ -324,21 +325,22 @@ return [
         [
             'text'    => 'Roles y permisos',
             'icon'    => 'fas fa-user-lock',
+            'can' => 'mostrar-usuario',
             'submenu' => [
                 [
                     'text' => 'Rol',
                     'url'  => 'rol',
-                    
+                    'can' => 'mostrar-rol'
                 ],
                 [
                     'text' => 'Permisos',
                     'url'  => 'permisos',
-
+                    'can' => 'mostrar-permiso'
                 ],
                 [
                     'text' => 'Usuarios',
                     'url'  => 'usuario',
-
+                    'can' => 'mostrar-usuario'
                 ],
             ],
         ],
@@ -353,6 +355,7 @@ return [
         [
             'text'    => 'Funcionarios',
             'icon'    => 'fas fa-portrait',
+            'can' => 'mostrar-funcionario',
             'submenu' => [
                 [
                     'text' => 'Funcionario',
@@ -370,6 +373,7 @@ return [
         [
             'text'    => 'Copropietarios',
             'icon'    => 'fas fa-house-user',
+            'can' => 'mostrar-copropietario',
             'submenu' => [
                 [
                     'text' => 'Copropietario',
@@ -383,9 +387,11 @@ return [
                 ],
             ],
         ],
+        // ADAPTAR
         [
             'text'    => 'Pagos',
             'icon'    => 'fas fa-cash-register',
+            'can' => 'mostrar-persona',
             'submenu' => [
                 [
                     'text' => 'Pago',
@@ -402,44 +408,49 @@ return [
         [
             'text'    => 'Articulo',
             'icon'    => 'fas fa-wallet',
+            'can' => 'mostrar-articulo',
             'submenu' => [
                 [
                     'text' => 'Articulo',
                     'url'  => 'articulo',
-                    // 'can' => 'mostrar-tipoarticulo'
+                    'can' => 'mostrar-articulo'
                 ],
                 [
                     'text' => 'Tipo Articulo',
                     'url'  => 'tipoarticulo',
-                    // 'can' => 'mostrar-tipoarticulo'
+                    'can' => 'mostrar-tipoarticulo'
                 ],
                 [
                     'text' => 'Periodo',
                     'url'  => 'periodo',
+                    'can' => 'mostrar-periodo'
                 ],
                 [
                     'text' => 'Gestion',
                     'url'  => 'gestion',
+                    'can' => 'mostrar-gestion'
                 ],
-             
             ],
         ],
         [
             'text'    => 'Vehiculos',
             'icon'    => 'fas fa-car-side',
+            'can' => 'mostrar-vehiculo',
             'submenu' => [
                 [
                     'text' => 'Vehiculo',
                     'url'  => 'vehiculo',
-                    'can' => 'mostrar-persona'
+                    'can' => 'mostrar-vehiculo'
                 ],
                 [
                     'text' => 'Estacionamiento',
                     'url'  => 'estacionamiento',
+                    'can' => 'mostrar-estacionamiento'
                 ],
                 [
                     'text' => 'Pabellon',
                     'url'  => 'pabellon',
+                    'can' => 'mostrar-pabellon'
                 ],
             ],
         ],

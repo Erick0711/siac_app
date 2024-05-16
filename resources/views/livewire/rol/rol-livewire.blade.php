@@ -4,7 +4,10 @@
         <div class="card-header">
             <div class="row d-flex justify-content-between">
                 <div class="col-md-1">
+                    @can('agregar-rol')
                     <button class="btn btn-success btn-md" wire:click="$toggle('openModalNew')"><i class="fas fa-plus-square"></i></button>
+                    @endcan
+
                 </div>
                 <div class="col-md-4">
                     <div class="input-group mb-3">
@@ -23,7 +26,9 @@
                     <tr class="text-center">
                         <th>#</th>
                         <th>Rol</th>
-                        <th>ACCIÓN</th>
+                        @can('funciones-rol')
+                        <th>ACCIONES</th>
+                        @endcan
                     </tr>
                 </thead>
                 <tbody>
@@ -31,14 +36,20 @@
                         <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td>{{$rol->name}}</td>
-                            <td class="text-center">
-                                <button class="btn btn-warning btn-sm" wire:click="edit({{ $rol->id }})"><i class="fas fa-pencil-alt"></i></button>
-                                @if($rol->estado == 1)
-                                    <button class="btn btn-danger btn-sm" wire:click="$dispatch('confirmDelete', {{ $rol->id }})"><i class="fas fa-trash"></i></button>
-                                @else
-                                    <button class="btn btn-primary btn-sm" wire:click="$dispatch('confirmDelete', {{ $rol->id }})"><i class="fas fa-history"></i></button>
-                                @endif
-                            </td>
+                            @can('funciones-tipopago')
+                                <td class="text-center">
+                                    @can('editar-tipopago')
+                                    <button class="btn btn-warning btn-sm" wire:click="edit({{ $rol->id }})"><i class="fas fa-pencil-alt"></i></button>
+                                    @endcan
+                                    @can('eliminar-tipopago')
+                                        @if($rol->estado == 1)
+                                            <button class="btn btn-danger btn-sm" wire:click="$dispatch('confirmDelete', {{ $rol->id }})"><i class="fas fa-trash"></i></button>
+                                        @else
+                                            <button class="btn btn-primary btn-sm" wire:click="$dispatch('confirmDelete', {{ $rol->id }})"><i class="fas fa-history"></i></button>
+                                        @endif
+                                    @endcan
+                                </td>
+                            @endcan
                         </tr>
                     @endforeach
                 </tbody>
