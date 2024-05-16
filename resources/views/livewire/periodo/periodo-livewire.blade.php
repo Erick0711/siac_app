@@ -27,6 +27,7 @@
                             <tr class="text-center">
                                 <th>#</th>
                                 <th>PERIODO</th>
+                                <th>SIGLA</th>
                                 <th>GESTION</th>
                                 @can('funciones-periodo')
                                     <th>ACCIONES</th>
@@ -37,8 +38,9 @@
                             @foreach ($periodos as $periodo)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td>{{$apartamento->periodo}}</td>
-                                    <td>{{$apartamento->gestion}}</td>
+                                    <td>{{$periodo->periodo}}</td>
+                                    <td>{{$periodo->sigla}}</td>
+                                    <td>{{$periodo->gestion}}</td>
                                     @can('funciones-periodo')
                                         <td class="text-center">
                                             @can('editar-periodo')
@@ -78,7 +80,7 @@
 
                     <!-- Encabezado del Modal -->
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title">NUEVO PERIODO</h4>
+                        <h4 class="modal-title font-italic font-weight-bold">NUEVO PERIODO</h4>
                         <button type="button" class=" btn btn-danger btn-sm" data-dismiss="modal" wire:click="closeModal">×</button>
                     </div>
         
@@ -86,14 +88,18 @@
                     <div class="modal-body">
                         <form wire:submit="created">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <label for="">PERIODO*:</label>
                                     <input class="form-control" type="text" wire:model="periodo.nombre" required>
                                 </div>
+                                <div class="col-md-6">
+                                    <label for="">SIGLA*:</label>
+                                    <input class="form-control" type="text" wire:model="periodo.sigla" required>
+                                </div>
                                 <div class="col-md-12 mt-4">
                                     <label for="">GESTION*:</label>
-                                    <select class="form-control" mode:model="periodo.id_gestion">
-                                        <option value=""></option>
+                                    <select class="form-control select2" wire:model="periodo.id_gestion" required>
+                                        <option value="" selected>SELECCIONAR</option>
                                         @foreach ($gestiones as $gestion)
                                             <option value="{{$gestion->id}}">{{$gestion->nombre}}</option>
                                         @endforeach
@@ -122,7 +128,7 @@
 
                     <!-- Encabezado del Modal -->
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title">EDITAR PERIODO</h4>
+                        <h4 class="modal-title font-italic font-weight-bold">EDITAR PERIODO</h4>
                         <button type="button" class=" btn btn-danger btn-sm" data-dismiss="modal" wire:click="closeModal">×</button>
                     </div>
         
@@ -130,14 +136,18 @@
                     <div class="modal-body">
                         <form wire:submit="update">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <label for="">PERIODO*:</label>
                                     <input class="form-control" type="text" wire:model="periodo.nombre" required>
                                 </div>
+                                <div class="col-md-6">
+                                    <label for="">SIGLA*:</label>
+                                    <input class="form-control" type="text" wire:model="periodo.sigla" required>
+                                </div>
                                 <div class="col-md-12 mt-4">
                                     <label for="">GESTION*:</label>
-                                    <select class="form-control" mode:model="periodo.id_gestion">
-                                        <option value=""></option>
+                                    <select class="form-control" wire:model="periodo.id_gestion">
+                                        <option value="" disabled selected>Seleccionar</option>
                                         @foreach ($gestiones as $gestion)
                                             <option value="{{$gestion->id}}">{{$gestion->nombre}}</option>
                                         @endforeach

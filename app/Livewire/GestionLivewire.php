@@ -35,7 +35,7 @@ class GestionLivewire extends Component
     public function render()
     {
         $gestiones = Gestion::where('gestion', 'like', '%' . $this->search . '%')
-                            ->where('nombre', 'like', '%' . $this->search . '%')
+                            ->orWhere('nombre', 'like', '%' . $this->search . '%')
                             ->orderBy('id','desc')
                             ->paginate(5);
 
@@ -44,7 +44,7 @@ class GestionLivewire extends Component
 
     public function created()
     {
-        // $this->periodo->validate();
+        $this->gestion->validate();
 
         $gestion = Gestion::create([
             'gestion' => $this->gestion->gestion, 

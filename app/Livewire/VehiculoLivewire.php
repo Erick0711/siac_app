@@ -54,14 +54,16 @@ class VehiculoLivewire extends Component
 
         if(!empty($this->searchCopropietario))
         {
-            $copropietarios = "entro";
             $copropietarios = DB::table('v_copropietario')
-                                        ->where('nombre', 'like', '%' . $this->searchCopropietario . '%')
-                                        ->orWhere('apellido', 'like', '%' . $this->searchCopropietario . '%')
-                                        ->orWhere('ci', 'like', '%' . $this->searchCopropietario . '%')
-                                        ->orderBy('id','desc')
-                                        ->limit(5)
-                                        ->get();
+                                    ->where('estado', 1) 
+                                    ->where(function($query) {
+                                        $query->where('nombre', 'like', '%' . $this->searchCopropietario . '%')
+                                            ->orWhere('apellido', 'like', '%' . $this->searchCopropietario . '%')
+                                            ->orWhere('ci', 'like', '%' . $this->searchCopropietario . '%');
+                                    })
+                                    ->orderBy('id', 'desc')
+                                    ->limit(5)
+                                    ->get();
         }
 
         $estacionamientos = Estacionamiento::all();
@@ -73,6 +75,8 @@ class VehiculoLivewire extends Component
     public function seleccionarCopropietario($id)
     {
         $this->obtenerIdCopropietario = $id;
+
+
         $this->selectedCopropietario = !$this->selectedCopropietario;
 
         if(!$this->selectedCopropietario)
@@ -102,16 +106,18 @@ class VehiculoLivewire extends Component
     {
         $this->idVehiculo = $id;
         $vehiculo = Vehiculo::find($id);
+        $nombre_compropietario = DB::table('v_copropietario')->where('id', $vehiculo->id_copropietario)->first();
+        $this->searchCopropietario = $nombre_compropietario->nombre;
+        $this->obtenerIdCopropietario = $vehiculo->id_copropietario;
+        $this->selectedCopropietario = true;
 
-        // dd($this->idCopropietario);
         $this->vehiculo->fill([
-            'id_copropietario' => $vehiculo->id_copropietario, 
+            'id_copropietario' => $this->obtenerIdCopropietario, 
             'id_estacionamiento' => $vehiculo->id_estacionamiento, 
             'color' => $vehiculo->color, 
             'marca' => $vehiculo->marca,
             'placa' => $vehiculo->placa, 
         ]);
-
         $this->openModalEdit = true;
     }
 
@@ -119,11 +125,14 @@ class VehiculoLivewire extends Component
     {
         $id = $this->idVehiculo;
 
+        $this->vehiculo->fill([
+            'id_copropietario' => $this->obtenerIdCopropietario, 
+        ]);
+
         $this->vehiculo->validate();
-
         $vehiculo = Vehiculo::find($id);
-        $vehiculo = $vehiculo->update($this->vehiculo->only('id_estacionamiento','color','marca','placa'));
-
+        $vehiculo = $vehiculo->update($this->vehiculo->only('id_copropietario','id_estacionamiento','color','marca','placa'));
+        // dd($this->vehiculo);
         $response = $vehiculo ? true : false;
         $this->resetAttribute();
         $this->dispatch('notificar', message: $response);

@@ -81,7 +81,7 @@
 
                 <!-- Encabezado del Modal -->
                 <div class="modal-header bg-primary">
-                    <h4 class="modal-title font-italic font-weight-bold">NUEVO COMPROPIETARIO</h4>
+                    <h4 class="modal-title font-italic font-weight-bold">NUEVO COPROPIETARIO</h4>
                     <button type="button" class="btn btn-danger btn-sm buttonCerrarModal" data-dismiss="modal" wire:click="closeModal">×</button>
                 </div>
     
@@ -132,7 +132,7 @@
                             <div class="col-md-12">
                                 <label for="">Apartamento*:</label>
                                 <select wire:model="copropietario.id_apartamento" class="form-control form-control-sm" required>
-                                    <option value="" selected>Seleccionar</option>
+                                    <option value="" selected>SELECCIONAR</option>
                                     @foreach ($apartamentos as $apartamento)
                                         @if($apartamento->estado == 1)
                                             <option value='{{$apartamento->id}}'>{{$apartamento->numero_apartamento}}</option>
@@ -185,7 +185,7 @@
 
              <!-- Encabezado del Modal -->
              <div class="modal-header bg-primary">
-                 <h4 class="modal-title font-italic font-weight-bold">EDITAR COMPROPIETARIO</h4>
+                 <h4 class="modal-title font-italic font-weight-bold">EDITAR COPROPIETARIO</h4>
                  <button type="button" class="btn btn-danger btn-sm buttonCerrarModal" data-dismiss="modal" wire:click="closeModal">×</button>
              </div>
  
@@ -193,13 +193,13 @@
              <div class="modal-body">
                  <form wire:submit="update">
                      <div class="row">
-                         {{-- <div class="col-md-12">
+                         <div class="col-md-12">
                              <input type="hidden" wire:model="obtenerIdPersona" required>
                              <label for="">Buscar Persona*:</label>
                              <input type="text" class="form-control buscar" placeholder="Buscar..." aria-label="Buscador" wire:model.live="searchPersona" 
                              @if($selectedPersona) disabled @endif>
-                         </div> --}}
-                         {{-- <div class="col-md-12 rounded p-3 mt-2" id="contenedorBuscador">
+                         </div>
+                         <div class="col-md-12 rounded p-3 mt-2" id="contenedorBuscador">
                              @if(isset($personas) && strlen($searchPersona) > 0)
                                  @if($personas->isNotEmpty())
                                      <table class="table table-bordered table-sm table-hover">
@@ -232,7 +232,7 @@
                                      <p class="text-center">Ningun dato encontrado.</p>
                                  @endif
                              @endif
-                         </div> --}}
+                         </div>
                          <div class="col-md-12">
                              <label for="">Apartamento*:</label>
                              <select wire:model="copropietario.id_apartamento" class="form-control form-control-sm" required>

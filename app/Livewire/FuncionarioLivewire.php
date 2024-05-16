@@ -56,11 +56,14 @@ class FuncionarioLivewire extends Component
 
         if(!empty($this->searchPersona))
         {
-            $personas = Persona::where('nombre', 'like', '%' . $this->searchPersona . '%')
-                                ->orWhere('apellido', 'like', '%' . $this->searchPersona . '%')
-                                ->orWhere('ci', 'like', '%' . $this->searchPersona . '%')
-                                ->orWhere('correo', 'like', '%' . $this->searchPersona . '%')
-                                ->orderBy('id','desc')
+            $personas = Persona::where('estado', 1)
+                                ->where(function($query) {
+                                    $query->where('nombre', 'like', '%' . $this->searchPersona . '%')
+                                            ->orWhere('apellido', 'like', '%' . $this->searchPersona . '%')
+                                            ->orWhere('ci', 'like', '%' . $this->searchPersona . '%')
+                                            ->orWhere('correo', 'like', '%' . $this->searchPersona . '%')
+                                            ->orderBy('id','desc');
+                                })
                                 ->limit(5)
                                 ->get();
         }
@@ -102,9 +105,14 @@ class FuncionarioLivewire extends Component
     {
         $this->idFuncionario = $id;
         $funcionario = Funcionario::find($id);
-        
+
+        $nombre = DB::table('v_persona')->where('id', $funcionario->id_persona)->first();
+        $this->searchPersona = $nombre->nombre;
+        $this->obtenerIdPersona = $funcionario->id_persona;
+        $this->selectedPersona = true;
+
         $this->funcionario->fill([
-            'id_persona' => $funcionario->id_persona, 
+            'id_persona' => $this->obtenerIdPersona, 
             'id_cargo' => $funcionario->id_cargo, 
             'salario' => $funcionario->salario, 
         ]);
@@ -116,9 +124,13 @@ class FuncionarioLivewire extends Component
     {
         $id = $this->idFuncionario;
 
+        $this->funcionario->fill([
+            'id_persona' => $this->obtenerIdPersona
+        ]);
+        
         $this->funcionario->validate();
         $funcionario = Funcionario::find($id);
-        $funcionario = $funcionario->update($this->funcionario->only('id_cargo','salario'));
+        $funcionario = $funcionario->update($this->funcionario->only('id_persona','id_cargo','salario'));
 
         $response = $funcionario ? true : false;
         $this->resetAttribute();

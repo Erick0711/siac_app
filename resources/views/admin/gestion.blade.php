@@ -5,11 +5,11 @@
 @livewireStyles
 
 @section('content_header')
-    <h1 class="fw-bold font-italic">Gestion</h1>
+    <h1 class="fw-bold font-italic">Gestión</h1>
 @stop
 
 @section('content')
-    @livewire('PeriodoLivewire')
+    @livewire('GestionLivewire')
 @stop
 
 @livewireScripts

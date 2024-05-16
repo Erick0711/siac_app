@@ -39,7 +39,7 @@ class EstacionamientoLivewire extends Component
     {
         $estacionamientos = DB::table('v_estacionamiento')
                                 ->where('numero_estacionamiento', 'like', '%' . $this->search . '%')
-                                ->where('numero_pabellon', 'like', '%' . $this->search . '%')
+                                ->orWhere('numero_pabellon', 'like', '%' . $this->search . '%')
                                 ->orderBy('id','desc')
                                 ->paginate(5);
 

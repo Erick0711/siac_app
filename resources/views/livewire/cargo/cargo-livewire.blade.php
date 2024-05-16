@@ -76,7 +76,7 @@
 
                     <!-- Encabezado del Modal -->
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title">NUEVO ROL</h4>
+                        <h4 class="modal-title font-italic font-weight-bold">NUEVO CARGO</h4>
                         <button type="button" class=" btn btn-danger btn-sm" data-dismiss="modal" wire:click="closeModal">×</button>
                     </div>
         
@@ -92,6 +92,18 @@
                                 <div class="col-md-12 mt-4">
                                     <label for="">Descripción*:</label>
                                     <textarea class="form-control" wire:model="cargo.descripcion" required></textarea>
+                                </div>
+
+                                <div class="col-md-12 mt-4 validate">
+                                    @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
 
@@ -118,7 +130,7 @@
   
                       <!-- Encabezado del Modal -->
                       <div class="modal-header bg-primary">
-                          <h4 class="modal-title">EDITAR ROL</h4>
+                          <h4 class="modal-title font-italic font-weight-bold">EDITAR CARGO</h4>
                           <button type="button" class=" btn btn-danger btn-sm" data-dismiss="modal" wire:click="closeModal">×</button>
                       </div>
           
@@ -135,6 +147,18 @@
                                       <label for="">Descripción*:</label>
                                       <textarea class="form-control" wire:model="cargo.descripcion" required></textarea>
                                   </div>
+
+                                  <div class="col-md-12 mt-4 validate">
+                                    @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                </div>
                               </div>
   
                               <div class="row d-flex justify-content-end mt-4">

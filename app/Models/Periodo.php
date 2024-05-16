@@ -13,6 +13,7 @@ class Periodo extends Model
     protected $fillable = [
         'id_gestion',
         'nombre',
+        'sigla',
         'estado'
     ];
 

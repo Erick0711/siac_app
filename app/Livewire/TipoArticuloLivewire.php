@@ -44,7 +44,7 @@ class TipoArticuloLivewire extends Component
 
     public function created()
     {
-        // $this->periodo->validate();
+        $this->tipoarticulo->validate();
 
         $tipoarticulo = TipoArticulo::create([
             'nombre' => $this->tipoarticulo->nombre, 
@@ -60,7 +60,7 @@ class TipoArticuloLivewire extends Component
         $this->idTipoArticulo = $id;
         $tipoarticulo = TipoArticulo::find($id);
         
-        $this->gestion->fill([
+        $this->tipoarticulo->fill([
             'nombre' => $tipoarticulo->nombre, 
         ]);
 
@@ -69,9 +69,9 @@ class TipoArticuloLivewire extends Component
 
     public function update()
     {
-        $id = $this->idGestion;
+        $id = $this->idTipoArticulo;
 
-        // $this->tipoarticulo->validate();
+        $this->tipoarticulo->validate();
         $tipoarticulo = TipoArticulo::find($id);
         $tipoarticulo = $tipoarticulo->update($this->tipoarticulo->only('nombre'));
 

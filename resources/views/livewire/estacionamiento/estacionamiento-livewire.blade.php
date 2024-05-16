@@ -75,7 +75,7 @@
 
                     <!-- Encabezado del Modal -->
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title">AGREGAR ESTACIONAMIENTO</h4>
+                        <h4 class="modal-title font-italic font-weight-bold">AGREGAR ESTACIONAMIENTO</h4>
                         <button type="button" class=" btn btn-danger btn-sm" data-dismiss="modal" wire:click="closeModal">×</button>
                     </div>
         
@@ -85,8 +85,8 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for="">Pabellon*:</label>
-                                    <select class="form-control" wire:model="estacionamiento.id_pabellon">
-                                        <option value="" disabled selected>SELECCIONAR</option>
+                                    <select class="form-control" wire:model="estacionamiento.id_pabellon" required>
+                                        <option value="" selected>SELECCIONAR</option>
                                         @foreach ($pabellones as $pabellon)
                                             <option value="{{$pabellon->id}}">{{$pabellon->numero_pabellon}}</option>
                                         @endforeach
@@ -95,6 +95,17 @@
                                 <div class="col-md-12 mt-4">
                                     <label for="">Estacionamiento*:</label>
                                     <input class="form-control" type="text" wire:model="estacionamiento.numero_estacionamiento" required>
+                                </div>
+                                <div class="col-md-12 mt-4 validate">
+                                    @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
 
@@ -121,7 +132,7 @@
   
                       <!-- Encabezado del Modal -->
                       <div class="modal-header bg-primary">
-                          <h4 class="modal-title">EDITAR ESTACIONAMIENTO</h4>
+                          <h4 class="modal-title font-italic font-weight-bold">EDITAR ESTACIONAMIENTO</h4>
                           <button type="button" class=" btn btn-danger btn-sm" data-dismiss="modal" wire:click="closeModal">×</button>
                       </div>
           
@@ -141,6 +152,17 @@
                                 <div class="col-md-12 mt-4">
                                     <label for="">Estacionamiento*:</label>
                                     <input class="form-control" type="text" wire:model="estacionamiento.numero_estacionamiento" required>
+                                </div>
+                                <div class="col-md-12 mt-4 validate">
+                                    @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
 

@@ -38,7 +38,8 @@ class PeriodoLivewire extends Component
     {
         $periodos = DB::table("v_periodo")
                         ->where('gestion', 'like', '%' . $this->search . '%')
-                        ->where('periodo', 'like', '%' . $this->search . '%')
+                        ->orWhere('periodo', 'like', '%' . $this->search . '%')
+                        ->orWhere('sigla', 'like', '%' . $this->search . '%')
                         ->orderBy('id','desc')
                         ->paginate(5);
 
@@ -48,10 +49,11 @@ class PeriodoLivewire extends Component
 
     public function created()
     {
-        // $this->periodo->validate();
-
+        $this->periodo->validate();
         $periodo = Periodo::create([
+            'id_gestion' => $this->periodo->id_gestion, 
             'nombre' => $this->periodo->nombre, 
+            'sigla' => $this->periodo->sigla, 
         ]);
 
         $response = $periodo ? true : false;
@@ -67,6 +69,7 @@ class PeriodoLivewire extends Component
         $this->periodo->fill([
             'id_gestion' => $periodo->id_gestion, 
             'nombre' => $periodo->nombre, 
+            'sigla' => $periodo->sigla, 
         ]);
 
         $this->openModalEdit = true;
@@ -77,8 +80,9 @@ class PeriodoLivewire extends Component
         $id = $this->idPeriodo;
 
         $this->periodo->validate();
+
         $periodo = Periodo::find($id);
-        $periodo = $periodo->update($this->periodo->only('numero_apartamento'));
+        $periodo = $periodo->update($this->periodo->only('id_gestion', 'nombre', 'sigla'));
 
         $response = $periodo ? true : false;
         $this->resetAttribute();

@@ -14,8 +14,8 @@ class GestionForm extends Form
     public function rules()
     {
         return [
-            'nombre' => 'required|string|max:255',
-            'gestion' => 'required|string|max:255',
+            'nombre' => 'required|numeric|min:1',
+            'gestion' => 'required|numeric|min:1',
         ];
     }
     
@@ -23,12 +23,12 @@ class GestionForm extends Form
     {
         return [
             'nombre.required' => 'El campo Nombre es obligatorio.',
-            'nombre.string' => 'El campo Nombre debe ser una cadena de caracteres.',
-            'nombre.max' => 'El campo Nombre no puede exceder los :max caracteres.',
+            'nombre.numeric' => 'El campo Nombre debe ser un número.',
+            'nombre.min' => 'El campo Nombre debe tener al menos :max caracteres.',
     
             'gestion.required' => 'El campo Gestión es obligatorio.',
-            'gestion.string' => 'El campo Gestión debe ser una cadena de caracteres.',
-            'gestion.max' => 'El campo Gestión no puede exceder los :max caracteres.',
+            'gestion.numeric' => 'El campo Gestión debe ser un número.',
+            'gestion.min' => 'El campo Gestión debe tener al menos :min caracteres.',
         ];
     }
     

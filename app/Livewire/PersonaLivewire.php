@@ -23,21 +23,19 @@ class PersonaLivewire extends Component
     public $openModalEdit = false;
     public PersonaForm $persona;
 
+    public function resetAttribute()
+    {
+        $this->reset(['openModalNew', 'openModalEdit', 'search', 'idPersona', 'persona', 'searchPersona']);
+    }
+
     public function closeModal()
     {
-        $this->reset(['openModalNew', 'openModalEdit']);
-        // $this->resetErrorBag();
+        $this->resetAttribute();
         $this->resetValidation();
     }
 
     public function render()
     {
-        // $personas = Persona::where('nombre', 'like', '%' . $this->search . '%')
-        //                     ->orWhere('apellido', 'like', '%' . $this->search . '%')
-        //                     ->orWhere('ci', 'like', '%' . $this->search . '%')
-        //                     ->orWhere('correo', 'like', '%' . $this->search . '%')
-        //                     ->orderBy('id','desc')
-        //                     ->paginate(5);
 
         $personas = DB::table("v_persona")
                         ->where('nombre', 'like', '%' . $this->search . '%')

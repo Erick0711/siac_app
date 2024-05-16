@@ -193,7 +193,7 @@
 
                     <!-- Encabezado del Modal -->
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title">EDITAR VEHICULO</h4>
+                        <h4 class="modal-title font-italic font-weight-bold">EDITAR VEHICULO</h4>
                         <button type="button" class=" btn btn-danger btn-sm" data-dismiss="modal" wire:click="closeModal">×</button>
                     </div>
         
@@ -201,12 +201,12 @@
                     <div class="modal-body">
                         <form wire:submit="update">
                             <div class="row">
-                                {{-- <div class="col-md-12">
+                                <div class="col-md-12">
                                     <input type="hidden" wire:model="obtenerIdCopropietario" required>
                                     <label for="">Buscar Copropietario*:</label>
                                     <input type="text" class="form-control buscar" placeholder="Buscar..." aria-label="Buscador" wire:model.live="searchCopropietario" 
                                     @if($selectedCopropietario) disabled @endif>
-                                </div> --}}
+                                </div>
                                 <div class="col-md-12 rounded p-3 mt-2" id="contenedorBuscador">
                                     @if(isset($copropietarios) && strlen($searchCopropietario) > 0)
                                         @if($copropietarios->isNotEmpty())

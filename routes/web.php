@@ -46,6 +46,15 @@ Route::view('/apartamento', 'admin.apartamento')->middleware('can:mostrar-aparta
 Route::view('/pabellon', 'admin.pabellon')->middleware('can:mostrar-pabellon')->name('pabellon');
 Route::view('/estacionamiento', 'admin.estacionamiento')->middleware('can:mostrar-estacionamiento')->name('estacionamiento');
 Route::view('/vehiculo', 'admin.vehiculo')->middleware('can:mostrar-vehiculo')->name('vehiculo');
+Route::view('/tipopago', 'admin.tipopago')->middleware('can:mostrar-articulo')->name('tipopago');
+Route::view('/periodo', 'admin.periodo')->middleware('can:mostrar-periodo')->name('periodo');
+Route::view('/gestion', 'admin.gestion')->middleware('can:mostrar-gestion')->name('gestion');
+Route::view('/tipoarticulo', 'admin.tipoarticulo')->middleware('can:mostrar-tipoarticulo')->name('tipoarticulo');
+Route::view('/articulo', 'admin.articulo')->middleware('can:mostrar-articulo')->name('articulo');
+Route::view('/tipopago', 'admin.tipopago')->middleware('can:mostrar-tipopago')->name('tipopago');
+
+
+
 
 
 

@@ -73,7 +73,7 @@
 
                     <!-- Encabezado del Modal -->
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title">AGREGAR PABELLON</h4>
+                        <h4 class="modal-title font-italic font-weight-bold">AGREGAR PABELLON</h4>
                         <button type="button" class=" btn btn-danger btn-sm" data-dismiss="modal" wire:click="closeModal">×</button>
                     </div>
         
@@ -85,6 +85,17 @@
                                     <label for="">Pabellon*:</label>
                                     <input class="form-control" type="text" wire:model="pabellon.numero_pabellon" required>
                                 </div>
+                                <div class="col-md-12 mt-4 validate">
+                                    @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
 
                             <div class="row d-flex justify-content-end mt-4">
@@ -92,8 +103,6 @@
                             </div>
                         </form>
                     </div>
-        
-                    
                     
                 </div>
             </div>
@@ -107,10 +116,10 @@
           <div class="modal" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: block" aria-modal="true" role="dialog">
               <div class="modal-dialog">
                   <div class="modal-content">
-  
+
                       <!-- Encabezado del Modal -->
                       <div class="modal-header bg-primary">
-                          <h4 class="modal-title">EDITAR PABELLON</h4>
+                          <h4 class="modal-title font-italic font-weight-bold">EDITAR PABELLON</h4>
                           <button type="button" class=" btn btn-danger btn-sm" data-dismiss="modal" wire:click="closeModal">×</button>
                       </div>
           
@@ -122,6 +131,17 @@
                                       <label for="">Pabellon*:</label>
                                       <input class="form-control" type="text" wire:model="pabellon.numero_pabellon" required>
                                   </div>
+                                  <div class="col-md-12 mt-4 validate">
+                                    @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                </div>
                               </div>
   
                               <div class="row d-flex justify-content-end mt-4">
@@ -129,8 +149,6 @@
                               </div>
                           </form>
                       </div>
-          
-                      
                       
                   </div>
               </div>

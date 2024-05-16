@@ -10,17 +10,16 @@
                 <div class="col-md-4">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                         </div>
                         <input type="text" class="form-control" placeholder="Buscar..." aria-label="buscar" aria-describedby="basic-addon1" wire:model.live="search">
-                      </div>
+                    </div>
                 </div>
             </div>
-
         </div>
         @if($users->count())
         <div class="card-body">
-            <table class="table table-bordered table-sm table-hover table-light">
+            <table class="table table-bordered table-sm table-hover">
                 <thead class="thead-dark">
                     <tr class="text-center">
                         <th>#</th>
@@ -38,6 +37,7 @@
                             <td>{{$user->email}}</td>
                             <td>{{$user->name}}</td>
                             @can('funciones-usuario')
+
                                 <td class="text-center">
                                     @can('editar-usuario')
                                         <button class="btn btn-warning btn-sm" wire:click="edit({{ $user->id }})"><i class="fas fa-pencil-alt"></i></button>
@@ -50,9 +50,9 @@
                                             <button class="btn btn-primary btn-sm" wire:click="$dispatch('confirmDelete', {{ $user->id }})"><i class="fas fa-history"></i></button>
                                         @endif
                                     @endcan
-
                                     <button class="btn btn-primary btn-sm" wire:click="resetPassword({{$user->id}})"><i class="fas fa-redo"></i></button>
                                 </td>
+
                             @endcan
                         </tr>
                     @endforeach

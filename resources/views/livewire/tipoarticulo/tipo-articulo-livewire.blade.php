@@ -76,7 +76,7 @@
 
                     <!-- Encabezado del Modal -->
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title">NUEVO TIPO ARTICULO</h4>
+                        <h4 class="modal-title font-italic font-weight-bold">NUEVO TIPO ARTICULO</h4>
                         <button type="button" class=" btn btn-danger btn-sm" data-dismiss="modal" wire:click="closeModal">×</button>
                     </div>
         
@@ -87,6 +87,17 @@
                                 <div class="col-md-12">
                                     <label for="">NOMBRE*:</label>
                                     <input class="form-control" type="text" wire:model="tipoarticulo.nombre" required>
+                                </div>
+                                <div class="col-md-12 mt-4 validate">
+                                    @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
 
@@ -111,7 +122,7 @@
 
                     <!-- Encabezado del Modal -->
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title">EDITAR TIPO ARTICULO</h4>
+                        <h4 class="modal-title font-italic font-weight-bold">EDITAR TIPO ARTICULO</h4>
                         <button type="button" class=" btn btn-danger btn-sm" data-dismiss="modal" wire:click="closeModal">×</button>
                     </div>
         
@@ -122,6 +133,17 @@
                                 <div class="col-md-12">
                                     <label for="">NOMBRE*:</label>
                                     <input class="form-control" type="text" wire:model="tipoarticulo.nombre" required>
+                                </div>
+                                <div class="col-md-12 mt-4 validate">
+                                    @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
 

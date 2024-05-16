@@ -80,7 +80,7 @@
 
                 <!-- Encabezado del Modal -->
                 <div class="modal-header bg-primary">
-                    <h4 class="modal-title font-italic font-weight-bold">NUEVA PERSONA</h4>
+                    <h4 class="modal-title font-italic font-weight-bold">NUEVO FUNCIONARIO</h4>
                     <button type="button" class="btn btn-danger btn-sm buttonCerrarModal" data-dismiss="modal" wire:click="closeModal">×</button>
                 </div>
     
@@ -176,7 +176,7 @@
            
                            <!-- Encabezado del Modal -->
                            <div class="modal-header bg-primary">
-                               <h4 class="modal-title font-italic font-weight-bold">EDITAR PERSONA</h4>
+                               <h4 class="modal-title font-italic font-weight-bold">EDITAR FUNCIONARIO</h4>
                                <button type="button" class=" btn btn-danger btn-sm" data-dismiss="modal" wire:click="closeModal">×</button>
                            </div>
                
@@ -184,6 +184,46 @@
                            <div class="modal-body">
                                <form wire:submit="update">
                                    <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="hidden" wire:model="obtenerIdPersona" required>
+                                        <label for="">Buscar Persona*:</label>
+                                        <input type="text" class="form-control buscar" placeholder="Buscar..." aria-label="Buscador" wire:model.live="searchPersona" 
+                                        @if($selectedPersona) disabled @endif>
+                                    </div>
+                                    <div class="col-md-12 rounded p-3 mt-2" id="contenedorBuscador">
+                                        @if(isset($personas) && strlen($searchPersona) > 0)
+                                            @if($personas->isNotEmpty())
+                                                <table class="table table-bordered table-sm table-hover">
+                                                    <thead class="bg-secondary">
+                                                        <tr class="text-center">
+                                                            <th>NOMBRE</th>
+                                                            <th>CI</th>
+                                                            <th>ACCION</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($personas as $persona)
+                                                            <tr class="persona-row" wire:key="persona-{{$persona->id}}" data-id="{{$persona->id}}" @if($selectedPersona && $obtenerIdPersona != $persona->id) style="display: none;" @endif>
+                                                                <td>{{ $persona->nombre }} {{ $persona->apellido }}</td>
+                                                                <td class="text-center">{{ $persona->ci }}</td>
+                                                                <td class="text-center">
+                                                                    <a wire:click="seleccionarPersona({{ $persona->id }})" class="btn @if($obtenerIdPersona == $persona->id) btn-danger @else btn-outline-success @endif btn-sm botones ">
+                                                                        @if($obtenerIdPersona == $persona->id)
+                                                                            Cancelar
+                                                                        @else
+                                                                            Seleccionar
+                                                                        @endif
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            @else
+                                                <p class="text-center">Ningun dato encontrado.</p>
+                                            @endif
+                                        @endif
+                                    </div>
                                        <div class="col-md-6">
                                            <label for="">Cargo*:</label>
                                            <select wire:model="funcionario.id_cargo" class="form-control form-control-sm" required>

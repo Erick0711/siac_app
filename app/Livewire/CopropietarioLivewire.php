@@ -57,11 +57,13 @@ class CopropietarioLivewire extends Component
 
         if(!empty($this->searchPersona))
         {
-            $personas = Persona::where('nombre', 'like', '%' . $this->searchPersona . '%')
-                                ->orWhere('apellido', 'like', '%' . $this->searchPersona . '%')
-                                ->orWhere('ci', 'like', '%' . $this->searchPersona . '%')
-                                ->orWhere('correo', 'like', '%' . $this->searchPersona . '%')
-                                ->orderBy('id','desc')
+            $personas = Persona::where('estado', 1)
+                                ->where(function($query) {
+                                    $query->where('nombre', 'like', '%' . $this->searchPersona . '%')
+                                            ->orWhere('apellido', 'like', '%' . $this->searchPersona . '%')
+                                            ->orWhere('ci', 'like', '%' . $this->searchPersona . '%')
+                                            ->orWhere('correo', 'like', '%' . $this->searchPersona . '%');
+                                })
                                 ->limit(5)
                                 ->get();
         }
@@ -93,6 +95,12 @@ class CopropietarioLivewire extends Component
             'cant_residentes' => $this->copropietario->cant_residentes, 
             'cant_mascotas' => $this->copropietario->cant_mascotas, 
         ]);
+
+        // Se procedera a dar de baja el apartamente porque ya se encuentra ocupado
+        $apartamento = Apartamento::find($this->copropietario->id_apartamento);
+        $apartamento->estado = 0;
+        $apartamento->save();
+
         $response = $copropietario ? true : false;
         $this->dispatch('notificar', message: $response);
         $this->resetAttribute();
@@ -102,10 +110,14 @@ class CopropietarioLivewire extends Component
     {
         $this->idCopropietario = $id;
         $copropietario = Copropietario::find($id);
+        $nombre = DB::table('v_persona')->where('id', $copropietario->id_persona)->first();
+        $this->searchPersona = $nombre->nombre;
+        $this->obtenerIdPersona = $copropietario->id_persona;
+        $this->selectedPersona = true;
 
         // dd($this->idCopropietario);
         $this->copropietario->fill([
-            'id_persona' => $copropietario->id_persona, 
+            'id_persona' => $this->obtenerIdPersona, 
             'id_apartamento' => $copropietario->id_apartamento, 
             'cant_residentes' => $copropietario->cant_residentes, 
             'cant_mascotas' => $copropietario->cant_mascotas, 
@@ -118,10 +130,28 @@ class CopropietarioLivewire extends Component
     {
         $id = $this->idCopropietario;
 
+        $this->copropietario->fill([
+            'id_persona' => $this->obtenerIdPersona
+        ]);
+
         $this->copropietario->validate();
 
         $copropietarios = Copropietario::find($id);
-        $copropietario = $copropietarios->update($this->copropietario->only('id_apartamento','cant_residentes','cant_mascotas'));
+        $estado_apartamento = $copropietarios->id_apartamento;
+
+        // SE ACTIVARIA NUEVAMENTE EL APARTAMENTO
+        if($estado_apartamento != $this->copropietario->id_apartamento)
+        {
+            $apartamento = Apartamento::find($copropietarios->id_apartamento);
+            $apartamento->estado = 1;
+            $apartamento->save();
+
+            $apartamentoOcupado = Apartamento::find($this->copropietario->id_apartamento);
+            $apartamentoOcupado->estado = 0;
+            $apartamentoOcupado->save();
+        }
+
+        $copropietario = $copropietarios->update($this->copropietario->only('id_persona','id_apartamento','cant_residentes','cant_mascotas'));
 
         $response = $copropietario ? true : false;
         $this->resetAttribute();
@@ -134,12 +164,18 @@ class CopropietarioLivewire extends Component
         $copropietario = Copropietario::find($id);
         $estado = $copropietario->estado;
 
+        $apartamento = Apartamento::find($copropietario->id_apartamento);
+
+
         if($estado == 1)
         {
             $copropietario->estado = 0;
+            $apartamento->estado = 1;
         }else{
             $copropietario->estado = 1;
+            $apartamento->estado = 0;
         }
         $copropietario->save();
+        $apartamento->save();
     }
 }
