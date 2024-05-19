@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('admin.inicio');
 })->middleware('auth');
 
 Route::get('/home', function () {
@@ -51,7 +51,9 @@ Route::view('/periodo', 'admin.periodo')->middleware('can:mostrar-periodo')->nam
 Route::view('/gestion', 'admin.gestion')->middleware('can:mostrar-gestion')->name('gestion');
 Route::view('/tipoarticulo', 'admin.tipoarticulo')->middleware('can:mostrar-tipoarticulo')->name('tipoarticulo');
 Route::view('/articulo', 'admin.articulo')->middleware('can:mostrar-articulo')->name('articulo');
-Route::view('/tipopago', 'admin.tipopago')->middleware('can:mostrar-tipopago')->name('tipopago');
+Route::view('/tipopago', 'admin.tipoPago')->middleware('can:mostrar-tipopago')->name('tipopago');
+Route::view('/pago', 'admin.pago')->middleware('can:login')->name('pago');
+
 
 
 
