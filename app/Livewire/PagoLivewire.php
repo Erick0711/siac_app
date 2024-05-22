@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 use App\Models\Articulo;
 use App\Models\TipoPago;
 use App\Models\Deuda;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use Illuminate\Support\Facades\DB;
 use App\Livewire\Form\CuentaCopropietarioForm;
@@ -184,12 +185,12 @@ class PagoLivewire extends Component
                     }
             }
 
-            if($cuentaCopro)
-            {
-                $response = $cuentaCopro ? true : false;
-                $this->dispatch('notificar', message: $response);
+            //if($cuentaCopro)
+            //{
+               // $response = $cuentaCopro ? true : false;
+                //$this->dispatch('notificar', message: $response);
                 $this->resetAttribute();
-            }
+           // }
         }
 
         if(isset($this->selectedArticulos) && !empty($this->selectedArticulos))
@@ -226,13 +227,55 @@ class PagoLivewire extends Component
                     }
                 }
             }
-
-            if($cuentaCopro)
-            {
-                $response = $cuentaCopro ? true : false;
-                $this->dispatch('notificar', message: $response);
-                $this->resetAttribute();
-            }
         }
+
+        if($cuentaCopro)
+        {
+            $this->generatePDF($this->idCuentaCopropietarioArreglo, $this->selectedArticulos, $this->obtenerIdCopropietario);
+
+            // INSERTAMOS EL LINK EN LA TABLA RECIBO
+            $response = $cuentaCopro ? true : false;
+            $this->dispatch('notificar', message: $response);
+            $this->resetAttribute();
+
+        }
+    }
+
+    public function generatePDF($arreglo_deudas, $arreglo_articulo, $idCopropietario)
+    {
+        $data = [
+            'title' => 'PDF generado en Laravel',
+            'deudas' => $arreglo_deudas,
+            'articulos' => $arreglo_articulo
+        ];
+
+        // dd($idCopropietario);
+
+        $pdf = PDF::loadView('admin.resiboPDF', $data);
+        $pdfPath = 'resiboPDF'; // Cambiar el nombre del archivo PDF si es necesario
+
+        // Storage::put($pdfPath, $pdf->output());
+
+        // Emitir evento para notificar al frontend
+        $this->dispatch('pdfGenerated', [
+            'url' => $pdfPath,
+            'title' => $data['title'],
+            'deudas' => $arreglo_deudas,
+            'articulos' => $arreglo_articulo, 
+            'idCopropietario' => $idCopropietario
+        ]);
+
+        // Construimos el link
+        $deudas = implode(',', $data['deudas']);
+        $articulos = implode(',', $data['articulos']);
+        $link = "{$pdfPath}?title={$data['title']}&deudas={$deudas}&articulos={$articulos}&idCopropietario={$idCopropietario}";
+
+        // Insertamos el link en la tabla RECIBO
+        DB::table('recibo')->insert([
+            'id_copropietario' => $idCopropietario,
+            'link' => $link
+        ]);
+        $this->resetAttribute();
+
     }
 }

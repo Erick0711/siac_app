@@ -113,6 +113,8 @@
                     </div>
                 </div>
             </div>
+            {{-- <a href="{{route("resiboPDF")}}">PDF</a> --}}
+            <button wire:click="generatePDF">Generar PDF</button>
     </div>
 
 </div>

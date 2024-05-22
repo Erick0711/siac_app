@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
+
 class InicioLivewire extends Component
 {
 
@@ -17,6 +18,7 @@ class InicioLivewire extends Component
 
     public function render()
     {
+
         $date = Carbon::now();
         $mes_actual = $date->format('n');
         $anio_actual = $date->format('y');
@@ -29,4 +31,6 @@ class InicioLivewire extends Component
 
         return view('livewire.inicio-livewire', compact('cantidad_copropietarios', 'pago_realizados', 'residentes_totales', 'total_mascotas', 'pago_deuda'));
     }
+
+
 }

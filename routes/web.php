@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ResiboController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -37,6 +38,10 @@ Route::view('/rol', 'admin.rol')->middleware('can:login')->name('rol');
 Route::view('/permisos', 'admin.permission')->middleware('can:login')->name('permission');
 
 Route::view('/persona', 'admin.persona')->middleware('can:mostrar-persona')->name('persona');
+Route::view('/genero', 'admin.genero')->middleware('can:mostrar-genero')->name('genero');
+Route::view('/pais', 'admin.pais')->middleware('can:mostrar-pais')->name('pais');
+
+
 // Route::view('/persona', 'admin.persona')->middleware('can:mostrar-persona')->name('persona');
 Route::view('/funcionario', 'admin.funcionario')->middleware('can:mostrar-funcionario')->name('persona');
 
@@ -52,7 +57,11 @@ Route::view('/gestion', 'admin.gestion')->middleware('can:mostrar-gestion')->nam
 Route::view('/tipoarticulo', 'admin.tipoarticulo')->middleware('can:mostrar-tipoarticulo')->name('tipoarticulo');
 Route::view('/articulo', 'admin.articulo')->middleware('can:mostrar-articulo')->name('articulo');
 Route::view('/tipopago', 'admin.tipoPago')->middleware('can:mostrar-tipopago')->name('tipopago');
-Route::view('/pago', 'admin.pago')->middleware('can:login')->name('pago');
+Route::view('/pago', 'admin.pago')->middleware('can:mostrar-pago')->name('pago');
+Route::view('/deuda', 'admin.deuda')->middleware('can:mostrar-deuda')->name('deuda');
+
+Route::get('/resiboPDF', [ResiboController::class, 'generatePDF'])->name('resiboPDF');
+
 
 
 

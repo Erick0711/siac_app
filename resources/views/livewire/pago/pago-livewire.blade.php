@@ -1,3 +1,4 @@
+@can('mostrar-pago')
 <div>
 
     {{-- **** CONTENEDOR **** --}}
@@ -147,3 +148,5 @@
     </div>
 
 </div>
+@endcan
+
