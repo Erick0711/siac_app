@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ReporteIngresoController;
+use App\Http\Controllers\ReporteEgresoController;
+
 use App\Http\Controllers\ResiboController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -60,7 +63,21 @@ Route::view('/tipopago', 'admin.tipoPago')->middleware('can:mostrar-tipopago')->
 Route::view('/pago', 'admin.pago')->middleware('can:mostrar-pago')->name('pago');
 Route::view('/deuda', 'admin.deuda')->middleware('can:mostrar-deuda')->name('deuda');
 
+// CREAR PERMISOS TAMBIEN EN ADMINLTE
+Route::view('/gasto', 'admin.gasto')->middleware('can:mostrar-deuda')->name('gasto');
+Route::view('/recibo', 'admin.recibo')->middleware('can:mostrar-deuda')->name('recibo');
+
+
 Route::get('/resiboPDF', [ResiboController::class, 'generatePDF'])->name('resiboPDF');
+// Route::get('/ingresoPeriodo', [ReporteIngresoController::class, 'ingresosPeriodo'])->name('ingresoPeriodo');
+// Route::get('/egresoPeriodo', [ReporteEgresoController::class, 'egresoPeriodo'])->name('egresoPeriodo');
+Route::view('/reporteIngreso', 'admin.reportes.ingreso')->middleware('can:mostrar-cuentaCopropietario')->name('reporteIngreso');
+
+
+
+Route::view('/cuentaCopropietario', 'admin.cuentaCopropietario.cuenta')->middleware('can:mostrar-cuentaCopropietario')->name('cuentaCopropietario');
+// Route::post('/modificarCuenta', 'admin.cuentaCopropietario.modificarCuenta')->middleware('can:mostrar-cuentaCopropietario')->name('modificarCuenta');
+
 
 
 

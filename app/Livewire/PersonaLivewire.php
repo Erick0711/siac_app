@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use App\Models\Pais;
+use App\Models\Genero;
+
 
 class PersonaLivewire extends Component
 {
@@ -46,8 +48,9 @@ class PersonaLivewire extends Component
                         ->orderBy('id','desc')
                         ->paginate(5);
 
-        $paises = Pais::all();         
-        return view('livewire.persona.persona-livewire', compact('personas', 'paises'));
+        $paises = Pais::all();      
+        $generos = Genero::all();   
+        return view('livewire.persona.persona-livewire', compact('personas', 'paises', 'generos'));
     }
 
     public function created()
@@ -62,6 +65,7 @@ class PersonaLivewire extends Component
             'complemento_ci' => $this->persona->complemento_ci, 
             'correo' => $this->persona->correo, 
             'fecha_nac' => $this->persona->fecha_nac, 
+            'id_genero' => $this->persona->id_genero, 
             'telefono' => $this->persona->telefono, 
             'telefono2' => $this->persona->telefono2, 
         ]);
@@ -84,6 +88,7 @@ class PersonaLivewire extends Component
             'complemento_ci' => $persona->complemento_ci,
             'correo' => $persona->correo,
             'fecha_nac' => $persona->fecha_nac,
+            'id_genero' => $persona->id_genero, 
             'telefono' => $persona->telefono,
             'telefono2' => $persona->telefono2,
         ]);
@@ -98,7 +103,7 @@ class PersonaLivewire extends Component
         $this->persona->validate();
 
         $persona = Persona::find($id);
-        $persona = $persona->update($this->persona->only('id_pais','nombre', 'apellido', 'ci', 'complemento_ci', 'correo', 'fecha_nac','telefono', 'telefono2'));
+        $persona = $persona->update($this->persona->only('id_pais','nombre', 'apellido', 'ci', 'complemento_ci', 'correo', 'fecha_nac','id_genero','telefono', 'telefono2'));
 
         $response = $persona ? true : false;
         $this->reset(['openModalNew', 'openModalEdit','persona', 'search']);

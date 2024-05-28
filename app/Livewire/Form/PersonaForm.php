@@ -7,6 +7,7 @@ use Livewire\Form;
 class PersonaForm extends Form
 {
     public $id_pais;
+    public $id_genero;
     public $nombre;
     public $apellido;
     public $ci;
@@ -21,6 +22,7 @@ class PersonaForm extends Form
     {
         return [
             'id_pais' => 'required|exists:pais,id', 
+            'id_genero' => 'required|exists:genero,id', 
             'nombre' => 'required|alpha',
             'apellido' => 'required|alpha',
             'ci' => 'required|numeric',
@@ -37,6 +39,8 @@ class PersonaForm extends Form
         return [
             'id_pais.required' => 'El campo ID de país es requerido.',
             'id_pais.exists' => 'El ID de país no existe en la tabla de países.',
+            'id_genero.exists' => 'El ID de género no existe en la tabla de género.',
+            'id_genero.required' => 'El campo ID de género es requerido.',
             'nombre.required' => 'El campo nombre es requerido.',
             'nombre.alpha' => 'El campo nombre debe ser una cadena de texto.',
             'apellido.required' => 'El campo apellido es requerido.',
@@ -57,6 +61,7 @@ class PersonaForm extends Form
     {
         return [
             'id_pais' => 'País',
+            'id_genero' => 'Género',
             'nombre' => 'Nombre',
             'apellido' => 'Apellido',
             'ci' => 'CI',

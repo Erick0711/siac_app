@@ -122,16 +122,25 @@
                                     <label for="">Teléfono Ref:</label>
                                     <input class="form-control form-control-sm" type="number" wire:model="persona.telefono2" min="0">
                                 </div>
-                                <div class="col-md-3 mt-2">
+                                <div class="col-md-6 mt-2">
                                     <label for="">Fecha Nacimiento*:</label>
                                     <input class="form-control form-control-sm" type="date" wire:model="persona.fecha_nac" required>
                                 </div>
-                                <div class="col-md-3 mt-2">
-                                    <label for="">Pais*:</label>
+                                <div class="col-md-6 mt-2">
+                                    <label for="">País*:</label>
                                     <select class="form-control form-control-sm select2" wire:model="persona.id_pais" required>
                                         <option value="" selected>SELECCIONAR</option>
                                         @foreach ($paises as $pais)
                                             <option value="{{$pais->id}}">{{$pais->nombre}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mt-2">
+                                    <label for="">Género*:</label>
+                                    <select class="form-control form-control-sm select2" wire:model="persona.id_genero" required>
+                                        <option value="" selected>SELECCIONAR</option>
+                                        @foreach ($generos as $genero)
+                                            <option value="{{$genero->id}}">{{$genero->nombre}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -207,11 +216,11 @@
                                 <label for="">Teléfono Ref:</label>
                                 <input class="form-control form-control-sm" type="number" wire:model="persona.telefono2" min="0">
                             </div>
-                            <div class="col-md-3 mt-2">
+                            <div class="col-md-6 mt-2">
                                 <label for="">Fecha Nacimiento*:</label>
                                 <input class="form-control form-control-sm" type="date" wire:model="persona.fecha_nac" required>
                             </div>
-                            <div class="col-md-3 mt-2">
+                            <div class="col-md-6 mt-2">
                                 <label for="">Pais*:</label>
                                 <select class="form-control form-control-sm select2" wire:model="persona.id_pais" required>
                                     <option value="" selected>SELECCIONAR</option>
@@ -220,9 +229,18 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="col-md-6 mt-2">
+                                <label for="">Género*:</label>
+                                <select class="form-control form-control-sm select2" wire:model="persona.id_genero" required>
+                                    <option value="" selected>SELECCIONAR</option>
+                                    @foreach ($generos as $genero)
+                                        <option value="{{$genero->id}}">{{$genero->nombre}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="col-md-12 mt-4">
                                 @if ($errors->any())
-                                <div class="alert alert-danger">
+                                    <div class="alert alert-danger">
                                         <ul>
                                             @foreach ($errors->all() as $error)
                                                 <li>{{ $error }}</li>
@@ -233,6 +251,7 @@
                                 <div class="row d-flex justify-content-end mt-4">
                                     <x-button class="btn-success btn-sm">Guardar</x-button>
                                 </div>
+                            </div>
                             </form>
                         </div>
             

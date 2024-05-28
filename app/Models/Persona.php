@@ -21,6 +21,7 @@ class Persona extends Model
         'complemento_ci',
         'correo',
         'fecha_nac',
+        'id_genero',
         'telefono',
         'telefono2',
         'estado'

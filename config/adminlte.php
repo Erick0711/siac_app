@@ -345,12 +345,36 @@ return [
             ],
         ],
 
+        // [
+        //     'text'    => 'Personas',
+        //     'icon'    => 'fas fa-user-friends',
+        //     'url'  => 'persona',
+        //     'can' => 'mostrar-persona'
+        // ],
+
         [
             'text'    => 'Personas',
             'icon'    => 'fas fa-user-friends',
-            'url'  => 'persona',
-            'can' => 'mostrar-persona'
+            'can' => 'mostrar-persona',
+            'submenu' => [
+                [
+                    'text' => 'Persona',
+                    'url'  => 'persona',
+                    'can' => 'mostrar-persona'
+                ],
+                [
+                    'text' => 'Genero',
+                    'url'  => 'genero',
+                    'can' => 'mostrar-genero'
+                ],
+                [
+                    'text' => 'Pais',
+                    'url'  => 'pais',
+                    'can' => 'mostrar-pais'
+                ],
+            ],
         ],
+
 
         [
             'text'    => 'Funcionarios',
@@ -403,8 +427,29 @@ return [
                     'url'  => 'tipopago',
                     'can' => 'mostrar-persona'
                 ],
+                [
+                    'text' => 'Recibo',
+                    'url'  => 'Generarrecibo',
+                    'can' => 'mostrar-persona'
+                ],
             ],
         ],
+
+        [
+            'text'    => 'Deudas',
+            'icon'    => 'fas fa-comments-dollar',
+            'url'  => 'deuda',
+            'can' => 'mostrar-deuda'
+        ],
+
+
+        [
+            'text'    => 'Gastos',
+            'icon'    => 'far fa-money-bill-alt',
+            'url'  => 'Gasto',
+            'can' => 'mostrar-deuda'
+        ],
+
         [
             'text'    => 'Articulo',
             'icon'    => 'fas fa-wallet',
