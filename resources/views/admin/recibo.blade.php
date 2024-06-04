@@ -1,17 +1,16 @@
 @extends('adminlte::page')
 
 @section('plugins.Sweetalert2', true)
-@section('title', 'Deuda')
+@section('title', 'Recibo')
 @livewireStyles
 
 @section('content_header')
-    <h1 class="fw-bold font-italic">Deuda</h1>
+    <h1 class="fw-bold font-italic">Recibo</h1>
 @stop
 
 @section('content')
-    @livewire('DeudaLivewire')
+    @livewire('ReciboLivewire')
 @stop
-
 @livewireScripts
 
 @section('css')

@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Gestion;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Copropietario;
 
+use Illuminate\Http\Request;
 class ReporteIngresoController extends Controller
 {
-    public function index()
+
+
+    public function generateReporteIngreso()
     {
-        
-        return view();
+        $cantidad_copropietarios = Copropietario::count();
+        $pdf = Pdf::loadView('admin.generateReporteIngreso');
+        return $pdf->stream('generateReporteIngreso.pdf');
     }
 }

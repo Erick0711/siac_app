@@ -65,7 +65,7 @@
         <!-- Modal -->
         <div class="modal" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: block" aria-modal="true" role="dialog">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content" style="width: 120%">
 
                     <!-- Encabezado del Modal -->
                     <div class="modal-header bg-primary">
@@ -127,9 +127,14 @@
                                     </ul>
                                 </div>
                             @endif --}}
-                            <div class="card-footer">
-                                {{$permissions->links()}}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card-footer">
+                                        {{$permissions->links()}}
+                                    </div>
+                                </div>
                             </div>
+                      
                             <div class="row d-flex justify-content-end mt-4">
                                 <x-button class="btn-success btn-sm">Guardar</x-button>
                             </div>
@@ -148,7 +153,7 @@
         <!-- Modal -->
         <div class="modal" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: block" aria-modal="true" role="dialog">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content" style="width: 120%">
                     <!-- Encabezado del Modal -->
                     <div class="modal-header bg-primary">
                         <h4 class="modal-title">NUEVO ROL</h4>
@@ -200,9 +205,11 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="card-footer">
-                                    {{$permissions->links()}}
-                                </div>
+                                    <div class="col-md-12" style="  margin: 0;
+                                    display: flex;
+                                    justify-content: center;">
+                                        {{$permissions->links()}}
+                                    </div>
                             </div>
                             {{-- @if ($errors->any())
                                 <div class="alert alert-danger">

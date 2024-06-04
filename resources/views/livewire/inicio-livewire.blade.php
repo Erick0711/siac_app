@@ -114,7 +114,76 @@
                 </div>
             </div>
             {{-- <a href="{{route("resiboPDF")}}">PDF</a> --}}
-            <button wire:click="generatePDF">Generar PDF</button>
-    </div>
+            {{-- <button wire:click="generatePDF">Generar PDF</button> --}}
+            <div class="col-md-12 mt-4">
+                <canvas id="myChart" width="400" height="120"></canvas>
+            </div>
 
+    </div>
+    @section('js')
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    @foreach ($fechas as $fecha)
+                        "{{ $fecha['mes'] }}/{{ $fecha['anio'] }}",
+                    @endforeach
+                ],
+                datasets: [{
+                    label: 'Pagos Realizados:',
+                    data: [
+                        @foreach ($ingresos_mes as $ingreso)
+                            {{ $ingreso }},
+                        @endforeach
+                    ],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(153, 102, 255, 0.7)',
+                        'rgba(255, 159, 64, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            fontColor: 'white' // Cambiar el color de los números del eje y
+                        },
+                        gridLines: {
+                            color: 'rgba(255, 255, 255, 0.3)' // Cambiar el color de las líneas del eje y
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            fontColor: 'white' // Cambiar el color de los números del eje x
+                        },
+                        gridLines: {
+                            color: 'rgba(255, 255, 255, 0.3)' // Cambiar el color de las líneas del eje x
+                        }
+                    }]
+                },
+                legend: {
+                    labels: {
+                        fontColor: 'white' // Cambiar el color de las etiquetas de la leyenda
+                    }
+                }
+            }
+        });
+    </script>
+@stop
 </div>

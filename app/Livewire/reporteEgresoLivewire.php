@@ -8,7 +8,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Barryvdh\DomPDF\Facade\Pdf;
 
-class ReporteIngresoLivewire extends Component
+class ReporteEgresoLivewire extends Component
 {
 
     use WithPagination;
@@ -21,6 +21,7 @@ class ReporteIngresoLivewire extends Component
     public $openModalEdit = false;
     public $idGestion = "";
     public $periodo = "";
+
     public function resetAttribute()
     {
         $this->reset(['openModalNew', 'openModalEdit', 'search', 'idGestion', 'periodo']);
@@ -46,7 +47,7 @@ class ReporteIngresoLivewire extends Component
             $periodos = Periodo::where('id_gestion', $this->idGestion)->get();
         }
 
-        return view('livewire.reportes.ingreso', compact('gestiones', 'periodos'));
+        return view('livewire.reportes.egreso', compact('gestiones', 'periodos'));
     }
 
     public function seleccionarGestion($gestionId)
@@ -62,9 +63,11 @@ class ReporteIngresoLivewire extends Component
         ];
 
         // dd($idCopropietario);
-
-        $pdf = PDF::loadView('admin.generateReporteIngreso', $data);
-        $pdfPath = 'generateReporteIngreso'; // Cambiar el nombre del archivo PDF si es necesario
+        
+        // Cambiar el nombre del archivo PDF si es necesario
+        $pdf = PDF::loadView('admin.generateReporteEgreso', $data);
+        $pdfPath = 'generateReporteEgreso'; 
+        
 
         // Storage::put($pdfPath, $pdf->output());
 

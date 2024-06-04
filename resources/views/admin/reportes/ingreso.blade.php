@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('plugins.Sweetalert2', true)
-@section('title', 'Cargo')
+@section('title', 'Reporte ingreso')
 @livewireStyles
 
 @section('content_header')
@@ -9,7 +9,8 @@
 @stop
 
 @section('content')
-    @livewire('ReporteIngresoLivewire')
+@livewire('ReporteIngresoLivewire')
+
 @stop
 
 @livewireScripts
@@ -19,9 +20,18 @@
 @stop
 
 @section('js')
-    <script src='{{asset('vendor/js/helpers.js')}}'></script>
+    <script src='{{ asset('vendor/js/helpers.js') }}'></script>
     <script>
-        notificacion();
-        confirmacion('delete', 'destroy');
+        // notificacion();
+        // confirmacion('delete', 'destroy');
+        Livewire.on('pdfGenerated', pdfData => {
+            console.log(pdfData);
+
+            let url = pdfData[0].url;
+            let gestion = pdfData[0].gestion;
+            let periodo = pdfData[0].periodo;
+
+            window.open(`${url}?gestion=${gestion}&periodo=${periodo}`, '_blank');
+        });
     </script>
 @stop

@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('plugins.Sweetalert2', true)
-@section('title', 'Usuario')
+@section('title', 'Vehiculo')
 @livewireStyles
 
 @section('content_header')

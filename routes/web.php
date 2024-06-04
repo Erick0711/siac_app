@@ -6,6 +6,7 @@ use App\Http\Controllers\ReporteEgresoController;
 use App\Http\Controllers\ResiboController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -69,13 +70,19 @@ Route::view('/recibo', 'admin.recibo')->middleware('can:mostrar-deuda')->name('r
 
 
 Route::get('/resiboPDF', [ResiboController::class, 'generatePDF'])->name('resiboPDF');
+Route::get('/generateReporteIngreso', [ReporteIngresoController::class, 'generateReporteIngreso'])->name('generateReporteIngreso');
+Route::get('/generateReporteEgreso', [ReporteEgresoController::class, 'generateReporteEgreso'])->name('generateReporteEgreso');
+
 // Route::get('/ingresoPeriodo', [ReporteIngresoController::class, 'ingresosPeriodo'])->name('ingresoPeriodo');
 // Route::get('/egresoPeriodo', [ReporteEgresoController::class, 'egresoPeriodo'])->name('egresoPeriodo');
-Route::view('/reporteIngreso', 'admin.reportes.ingreso')->middleware('can:mostrar-cuentaCopropietario')->name('reporteIngreso');
+
+Route::view('/reporteIngreso', 'admin.reportes.ingreso')->name('reporteIngreso');
+Route::view('/reporteEgreso', 'admin.reportes.egreso')->name('reporteEgreso');
 
 
 
 Route::view('/cuentaCopropietario', 'admin.cuentaCopropietario.cuenta')->middleware('can:mostrar-cuentaCopropietario')->name('cuentaCopropietario');
+
 // Route::post('/modificarCuenta', 'admin.cuentaCopropietario.modificarCuenta')->middleware('can:mostrar-cuentaCopropietario')->name('modificarCuenta');
 
 

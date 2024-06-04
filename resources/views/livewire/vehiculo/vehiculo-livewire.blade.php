@@ -138,7 +138,7 @@
                                  <option value="" selected>Seleccionar</option>
                                  @foreach ($estacionamientos as $estacionamiento)
                                      @if($estacionamiento->estado == 1)
-                                         <option value='{{$estacionamiento->id}}'>{{$estacionamiento->numero_estacionamiento}}</option>
+                                         <option value='{{$estacionamiento->id}}'>{{$estacionamiento->numero_pabellon}} {{$estacionamiento->numero_estacionamiento}}</option>
                                      @else
                                          <option class="text-danger" value='{{$estacionamiento->id}}' disabled>{{$estacionamiento->numero_estacionamiento}} - OCUPADO</option>
                                      @endif

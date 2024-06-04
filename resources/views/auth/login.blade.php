@@ -104,20 +104,24 @@
         <div class="form-group">
             <label for="email" class="form-label">{{ __('Usuario') }}</label>
             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="...">
-            @error('email')
-                <span class="invalid-feedback" role="alert">{{ $message }}</span>
-            @enderror
+        
         </div>
 
         <div class="form-group">
             <label for="password" class="form-label">{{ __('Contraseña') }}</label>
             <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="...">
+        
+        </div>
+        <div style="display: flex; justify-content: center">
+            @error('email')
+                <span class="invalid-feedback mt-4" role="alert">Datos incorrectos</span>
+            @enderror
             @error('password')
-                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                <span class="invalid-feedback mt-4" role="alert">Datos incorrectos</span>
             @enderror
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style="margin-top: 4px">
             <button type="submit" class="btn btn-primary">{{ __('Ingresar') }}</button>
         </div>
     </form>

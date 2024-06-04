@@ -4,7 +4,7 @@
 @section('plugins.Select2', true) --}}
 
 
-@section('title', 'Cargo')
+@section('title', 'Articulo')
 @livewireStyles
 
 @section('content_header')

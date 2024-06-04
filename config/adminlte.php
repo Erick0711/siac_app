@@ -30,8 +30,8 @@ return [
     |
     */
 
-    'use_ico_only' => false,
-    'use_full_favicon' => false,
+    'use_ico_only' => true,
+    'use_full_favicon' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -87,7 +87,6 @@ return [
         'enabled' => true,
         'logo' => false,
         'img' => [
-          
             'path' => 'vendor/adminlte/dist/img/logo.png',
             'alt' => 'Auth Logo',
             'class' => '',
@@ -111,11 +110,11 @@ return [
     'preloader' => [
         'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-            'alt' => 'AdminLTE Preloader Image',
-            'effect' => 'animation__shake',
-            'width' => 60,
-            'height' => 60,
+            'path' => 'vendor/adminlte/dist/img/logo.png',
+            'alt' => 'Logo preloader SIAC',
+            'effect' => 'animation__wobble',
+            'width' => 90,
+            'height' => 90,
         ],
     ],
 
@@ -322,6 +321,7 @@ return [
             // 'label_color' => 'success',
         ],
         // ['header' => 'account_settings'],
+
         [
             'text'    => 'Roles y permisos',
             'icon'    => 'fas fa-user-lock',
@@ -344,13 +344,6 @@ return [
                 ],
             ],
         ],
-
-        // [
-        //     'text'    => 'Personas',
-        //     'icon'    => 'fas fa-user-friends',
-        //     'url'  => 'persona',
-        //     'can' => 'mostrar-persona'
-        // ],
 
         [
             'text'    => 'Personas',
@@ -394,6 +387,7 @@ return [
             ],
         ],
 
+
         [
             'text'    => 'Copropietarios',
             'icon'    => 'fas fa-house-user',
@@ -411,6 +405,7 @@ return [
                 ],
             ],
         ],
+
         // ADAPTAR
         [
             'text'    => 'Pagos',
@@ -420,17 +415,17 @@ return [
                 [
                     'text' => 'Pago',
                     'url'  => 'pago',
-                    'can' => 'mostrar-persona'
+                    'can' => 'mostrar-pago'
                 ],
                 [
                     'text' => 'Tipo pago',
                     'url'  => 'tipopago',
-                    'can' => 'mostrar-persona'
+                    'can' => 'mostrar-tipopago'
                 ],
                 [
                     'text' => 'Recibo',
-                    'url'  => 'Generarrecibo',
-                    'can' => 'mostrar-persona'
+                    'url'  => 'recibo',
+                    'can' => 'mostrar-recibo'
                 ],
             ],
         ],
@@ -442,11 +437,10 @@ return [
             'can' => 'mostrar-deuda'
         ],
 
-
         [
             'text'    => 'Gastos',
             'icon'    => 'far fa-money-bill-alt',
-            'url'  => 'Gasto',
+            'url'  => 'gasto',
             'can' => 'mostrar-deuda'
         ],
 
@@ -477,6 +471,7 @@ return [
                 ],
             ],
         ],
+
         [
             'text'    => 'Vehiculos',
             'icon'    => 'fas fa-car-side',
@@ -500,6 +495,26 @@ return [
             ],
         ],
 
+        [
+            'text'    => 'Reportes',
+            'icon'    => 'fas fa-file-alt',
+            'can' => 'mostrar-reportes',
+            'submenu' => [
+                [
+                    'text' => 'Pagos',
+                    'url'  => 'reporteIngreso',
+                    'can' => 'mostrar-reporte-pagos'
+                ],
+                [
+                    'text' => 'Gasto',
+                    'url'  => 'reporteEgreso',
+                    'can' => 'mostrar-reporte-gastos'
+                ],
+            ],
+        ],
+
+
+    
         // [
         //     'text' => 'change_password',
         //     'url'  => 'admin/settings',
