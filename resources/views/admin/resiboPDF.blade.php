@@ -36,25 +36,32 @@
         @php
             $total = 0;
             $contador = 1;
+            $idCopropietario =  request()->query('idCopropietario');
         @endphp
+        {{-- <p>{{ request()->query('deudas')}}</p> --}}
+        {{-- <p>{{ $idCopropietario}}</p> --}}
 
         @if(request()->query('deudas'))
             @foreach(explode(',', request()->query('deudas')) as $deudaId)
-                @php
-                    $deuda = DB::table('v_articulo')->where('id', $deudaId)->first();
+            {{-- <p>{{ $deudaId}}</p> --}}
+
+               @php
+                    // $deudaIds = intval($deudaIds);
+                    $deuda = DB::table('v_deuda')->where('id_pago', $deudaId)->first();
+                    // print_r($deuda);
                 @endphp
-                @if($deuda)
+                 @if($deuda)
                     @php
-                        $total += $deuda->monto;
+                        $total += $deuda->debe;
                     @endphp
                     <tr>
                         <td class="text-center">{{ $contador++ }}</td>
                         <td>{{ $deuda->descripcion }}</td>
                         <td class="text-center">DEUDA</td>
-                        <td class="text-center">{{ $deuda->monto }} Bs</td>
+                        <td class="text-center">{{ $deuda->debe }} Bs</td>
                     </tr>
                 @endif
-            @endforeach
+            @endforeach 
         @endif
 
         @if(request()->query('articulos'))

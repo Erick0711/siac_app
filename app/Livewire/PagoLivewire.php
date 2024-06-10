@@ -145,15 +145,30 @@ class PagoLivewire extends Component
         $date = Carbon::now();
         $mes_actual = $date->format('n');
         $anio_actual = $date->format('y');
+        $anio_gestion = $date->format('Y');
 
-        $articulos = DB::table('v_articulo')->where('periodo', $mes_actual)->where('nombre', $anio_actual)->groupBy('id')->get();
+        if(isset($this->obtenerIdCopropietario))
+        {
+            // VERIFICAMOS QUE NO EXISTE UN ARTICULO IGUAL DEL MODULO ACTUAL PARA EVITAR QUE COMPRE NUEVAMENTE EL MISMO ARTICULO
+            $pagosArticulo = DB::table('v_deuda')
+                            ->where('id_copropietario', $this->obtenerIdCopropietario)
+                            ->where('gestion', $anio_gestion)
+                            ->where('periodo', $mes_actual)
+                            ->groupBy('id_articulo')
+                            ->pluck('id_articulo');
+        }
+
+
+
+        $articulos = DB::table('v_articulo')->where('periodo', $mes_actual)->where('nombre', $anio_actual)->where('id_tipoarticulo', 1)->whereNotIn('id', $pagosArticulo)->groupBy('id')->get();
 
         $tipopagos = TipoPago::all();
 
         // Tenemos que buscar si el copropietario tiene deuda
         $deudas = DB::table("v_deuda")->where('id_copropietario', $this->obtenerIdCopropietario)->where('estado', 1)->get();
-        
+
         $articulosPagos = DB::table("v_articulo")->whereIn('id', $this->selectedArticulos)->where('estado', 1)->groupBy('id')->get();
+
 
         return view('livewire.pago.pago-livewire', compact('copropietarios', 'articulos', 'tipopagos', 'deudas', 'articulosPagos'));
     }
@@ -161,6 +176,8 @@ class PagoLivewire extends Component
 
     public function created()
     {
+        // dd($this->idCuentaCopropietarioArreglo);
+
         if(isset($this->idCuentaCopropietarioArreglo) && !empty($this->idCuentaCopropietarioArreglo))
         {
             foreach($this->idCuentaCopropietarioArreglo as $cuentaCopropietario)
@@ -189,7 +206,7 @@ class PagoLivewire extends Component
             //{
                // $response = $cuentaCopro ? true : false;
                 //$this->dispatch('notificar', message: $response);
-                $this->resetAttribute();
+                // $this->resetAttribute();
            // }
         }
 
@@ -231,13 +248,13 @@ class PagoLivewire extends Component
 
         if($cuentaCopro)
         {
+            // dd($this->selectedArticulos);
             $this->generatePDF($this->idCuentaCopropietarioArreglo, $this->selectedArticulos, $this->obtenerIdCopropietario);
 
             // INSERTAMOS EL LINK EN LA TABLA RECIBO
             $response = $cuentaCopro ? true : false;
             $this->dispatch('notificar', message: $response);
-            $this->resetAttribute();
-
+            // $this->resetAttribute();
         }
     }
 
