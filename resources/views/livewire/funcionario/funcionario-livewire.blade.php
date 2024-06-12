@@ -139,7 +139,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="">Salario*:</label>
-                                <input type="text" wire:model="funcionario.salario" class="form-control form-control-sm" required>
+                                <input type="number" min="1" wire:model="funcionario.salario" class="form-control form-control-sm" required>
                             </div>
                             <div class="col-md-12 mt-4 validate">
                                 @if ($errors->any())
@@ -235,7 +235,7 @@
                                        </div>
                                        <div class="col-md-6">
                                            <label for="">Salario*:</label>
-                                           <input type="text" wire:model="funcionario.salario" class="form-control form-control-sm" required>
+                                           <input type="number" min="1" wire:model="funcionario.salario" class="form-control form-control-sm" required>
                                        </div>
                                        <div class="col-md-12 mt-4 validate">
                                            @if ($errors->any())

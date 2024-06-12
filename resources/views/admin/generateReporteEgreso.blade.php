@@ -83,7 +83,7 @@
             <tbody>
                 
                 @php
-                    $pagos = DB::table('v_gasto')->where('id_gestion', $gestion)->where('id_periodo', $periodo)->where('monto', '>', 0)->get();
+                    $pagos = DB::table('v_gasto')->where('id_gestion', $gestion)->where('estado', 1)->where('id_periodo', $periodo)->where('monto', '>', 0)->get();
                     $total = 0;
                 @endphp
 

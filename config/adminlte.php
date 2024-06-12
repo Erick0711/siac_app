@@ -418,6 +418,11 @@ return [
                     'can' => 'mostrar-pago'
                 ],
                 [
+                    'text' => 'Historia Pago',
+                    'url'  => 'historialPago',
+                    'can' => 'mostrar-pago'
+                ],
+                [
                     'text' => 'Tipo pago',
                     'url'  => 'tipopago',
                     'can' => 'mostrar-tipopago'

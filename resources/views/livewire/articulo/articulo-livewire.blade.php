@@ -114,7 +114,7 @@
                                 </div>
                                 <div class="col-md-12 mt-4">
                                     <label for="">MONTO*:</label>
-                                    <input class="form-control" type="text" wire:model="articulo.monto" required>
+                                    <input class="form-control" type="number" min="1" wire:model="articulo.monto" required>
                                 </div>
                                 <div class="col-md-12 mt-4">
                                     <label for="">DESCRIPCION*:</label>
@@ -182,7 +182,7 @@
                                 </div>
                                 <div class="col-md-12 mt-4">
                                     <label for="">MONTO*:</label>
-                                    <input class="form-control" type="text" wire:model="articulo.monto" required>
+                                    <input class="form-control" type="number" min="1" wire:model="articulo.monto" required>
                                 </div>
                                 <div class="col-md-12 mt-4">
                                     <label for="">DESCRIPCION*:</label>

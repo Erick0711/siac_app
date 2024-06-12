@@ -88,11 +88,11 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for="">NOMBRE*:</label>
-                                    <input class="form-control" type="text" wire:model="gestion.nombre" required>
+                                    <input class="form-control" type="number" min="1" wire:model="gestion.nombre" required>
                                 </div>
                                 <div class="col-md-12 mt-4">
                                     <label for="">GESTION*:</label>
-                                    <input class="form-control" type="text" wire:model="gestion.gestion" required>
+                                    <input class="form-control" type="number" min="1" wire:model="gestion.gestion" required>
                                 </div>
                                 <div class="col-md-12 mt-4 validate">
                                     @if ($errors->any())
@@ -138,11 +138,11 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for="">NOMBRE*:</label>
-                                    <input class="form-control" type="text" wire:model="gestion.nombre" required>
+                                    <input class="form-control" type="number" min="1" wire:model="gestion.nombre" required>
                                 </div>
                                 <div class="col-md-12 mt-4">
                                     <label for="">GESTION*:</label>
-                                    <input class="form-control" type="text" wire:model="gestion.gestion" required>
+                                    <input class="form-control" type="number" min="1" wire:model="gestion.gestion" required>
                                 </div>
                                 <div class="col-md-12 mt-4 validate">
                                     @if ($errors->any())

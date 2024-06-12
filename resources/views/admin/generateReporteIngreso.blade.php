@@ -93,7 +93,7 @@
             <tbody>
                 
                 @php
-                    $pagos = DB::table('v_pago')->where('id_gestion', $gestion)->where('id_periodo', $periodo)->where('haber', '>', 0)->get();
+                    $pagos = DB::table('v_pago')->where('id_gestion', $gestion)->where('estado', 1)->where('id_periodo', $periodo)->where('haber', '>', 0)->get();
                     $total = 0;
                 @endphp
 

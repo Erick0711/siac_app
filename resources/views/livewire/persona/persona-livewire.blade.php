@@ -112,11 +112,11 @@
                                 </div>
                                 <div class="col-md-6 mt-2">
                                     <label for="">Correo*:</label>
-                                    <input class="form-control form-control-sm" type="email" wire:model="persona.correo"  required>
+                                    <input class="form-control form-control-sm" type="email" wire:model="persona.correo" required>
                                 </div>
                                 <div class="col-md-3 mt-2">
                                     <label for="">Teléfono*:</label>
-                                    <input class="form-control form-control-sm" type="number" wire:model="persona.telefono" min="0" required>
+                                    <input class="form-control form-control-sm" type="number" wire:model="persona.telefono" min="6" required>
                                 </div>
                                 <div class="col-md-3 mt-2">
                                     <label for="">Teléfono Ref:</label>
@@ -162,8 +162,6 @@
                             </div>
                         </form>
                     </div>
-         
-                     
                      
                 </div>
             </div>

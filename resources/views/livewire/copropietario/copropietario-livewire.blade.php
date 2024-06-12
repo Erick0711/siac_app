@@ -144,7 +144,7 @@
                             </div>
                             <div class="col-md-6 mt-4">
                                 <label for="">CANTIDAD RESIDENTE*:</label>
-                                <input type="number" wire:model="copropietario.cant_residentes" class="form-control form-control-sm" required>
+                                <input type="number" min="1" wire:model="copropietario.cant_residentes" class="form-control form-control-sm" required>
                             </div>
                             <div class="col-md-6 mt-4">
                                 <label for="">CANTIDAD MASCOTA:</label>
@@ -248,7 +248,7 @@
                          </div>
                          <div class="col-md-6 mt-4">
                              <label for="">CANTIDAD RESIDENTE*:</label>
-                             <input type="number" wire:model="copropietario.cant_residentes" class="form-control form-control-sm" required>
+                             <input type="number" min="1" wire:model="copropietario.cant_residentes" class="form-control form-control-sm" required>
                          </div>
                          <div class="col-md-6 mt-4">
                              <label for="">CANTIDAD MASCOTA:</label>

@@ -62,6 +62,8 @@ Route::view('/tipoarticulo', 'admin.tipoarticulo')->middleware('can:mostrar-tipo
 Route::view('/articulo', 'admin.articulo')->middleware('can:mostrar-articulo')->name('articulo');
 Route::view('/tipopago', 'admin.tipoPago')->middleware('can:mostrar-tipopago')->name('tipopago');
 Route::view('/pago', 'admin.pago')->middleware('can:mostrar-pago')->name('pago');
+Route::view('/historialPago', 'admin.historialPago')->middleware('can:mostrar-pago')->name('historialPago');
+
 Route::view('/deuda', 'admin.deuda')->middleware('can:mostrar-deuda')->name('deuda');
 
 // CREAR PERMISOS TAMBIEN EN ADMINLTE
